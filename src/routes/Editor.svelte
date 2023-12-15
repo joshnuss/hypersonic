@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte'
+  import { onMount, tick } from 'svelte'
   import { createClient } from '@liveblocks/client'
   import LiveblocksProvider from '@liveblocks/yjs'
   import * as Y from 'yjs'
@@ -9,6 +9,7 @@
   import { marked } from 'marked'
 
   let element
+  let editor
   let mode = 'editor'
   let markdown = ''
 
@@ -32,7 +33,7 @@
       markdown = e.target.toString()
     })
 
-    const editor = monaco.editor.create(element, {
+    editor = monaco.editor.create(element, {
       value: '', // MonacoBinding overwrites this value with the content of type
       theme: 'vs-dark',
       language: 'markdown',
@@ -83,8 +84,10 @@
     }
   })
 
-  function toggleMode() {
+  async function toggleMode() {
     mode = mode == 'editor' ? 'preview' : 'editor'
+    await tick()
+    editor.focus()
   }
 
   function keydown(e) {
