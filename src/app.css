@@ -1,6 +1,5 @@
 @import 'open-props/postcss/style';
 @import 'open-props/normalize.dark.min';
-@import 'quill/dist/quill.snow.css';
 
 body {
   height: 100vh;
