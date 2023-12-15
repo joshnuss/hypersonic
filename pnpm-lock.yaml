@@ -35,6 +35,9 @@ devDependencies:
   marked:
     specifier: ^11.1.0
     version: 11.1.0
+  marked-base-url:
+    specifier: ^1.1.2
+    version: 1.1.2(marked@11.1.0)
   monaco-editor:
     specifier: ^0.45.0
     version: 0.45.0
@@ -1205,6 +1208,14 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /marked-base-url@1.1.2(marked@11.1.0):
+    resolution: {integrity: sha512-Rgnd6tGrVhyPgQzPvKt1vBA3eUAHNtAXBJ/Xf30/e9kHufBqDK283HTqW9cPinV8lNcIVQ+JLSUwZnEPchyx6Q==}
+    peerDependencies:
+      marked: '>= 4 < 12'
+    dependencies:
+      marked: 11.1.0
     dev: true
 
   /marked@11.1.0:
