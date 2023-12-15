@@ -7,6 +7,7 @@
   import { MonacoBinding } from 'y-monaco'
   import * as monaco from 'monaco-editor'
   import { initVimMode } from 'monaco-vim'
+  import { MonacoMarkdownExtension } from 'monaco-markdown'
   import { marked } from 'marked'
 
   let element
@@ -50,6 +51,9 @@
     })
 
     const vimMode = initVimMode(editor)
+
+    const extension = new MonacoMarkdownExtension()
+    extension.activate(editor)
 
     editor.addAction({
       // An unique identifier of the contributed action.
