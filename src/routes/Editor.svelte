@@ -3,6 +3,7 @@
   import { createClient } from '@liveblocks/client'
   import LiveblocksProvider from '@liveblocks/yjs'
   import * as Y from 'yjs'
+  import { IndexeddbPersistence } from 'y-indexeddb'
   import { MonacoBinding } from 'y-monaco'
   import * as monaco from 'monaco-editor'
   import { initVimMode } from 'monaco-vim'
@@ -28,6 +29,8 @@
     const yDoc = new Y.Doc()
     const yText = yDoc.getText('text')
     const provider = new LiveblocksProvider(room, yDoc)
+
+    const persistence = new IndexeddbPersistence(room, yDoc)
 
     yText.observe((e) => {
       markdown = e.target.toString()
