@@ -11,13 +11,14 @@
   import { marked } from 'marked'
   import { baseUrl } from 'marked-base-url'
 
-  marked.use(baseUrl("/docs/"));
+  marked.use(baseUrl('/docs/'))
 
   export let roomName
   export let path
 
   let element
   let editor
+  let binding
   let mode = 'editor'
   let markdown = ''
 
@@ -32,67 +33,99 @@
       initialPresence: {}
     })
 
-    // Set up Yjs document, shared text, and Liveblocks Yjs provider
-    const yDoc = new Y.Doc()
-    const yText = yDoc.getText(path)
-    const provider = new LiveblocksProvider(room, yDoc)
+    const rootDoc = new Y.Doc()
+    const provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
+    const persistence = new IndexeddbPersistence(room, rootDoc)
 
-    const persistence = new IndexeddbPersistence(room, yDoc)
+    provider.on('synced', () => {
+      const documents = rootDoc.getMap('documents')
 
-    yText.observe((e) => {
-      markdown = e.target.toString()
-    })
+      // Set up Yjs document, shared text, and Liveblocks Yjs provider
+      let yDoc
 
-    editor = monaco.editor.create(element, {
-      value: '', // MonacoBinding overwrites this value with the content of type
-      theme: 'vs-dark',
-      language: 'markdown',
-      minimap: { enabled: false },
-      automaticLayout: true,
-      fontSize: 24,
-      scrollbar: {
-        vertical: 'auto',
-        horizontal: 'auto'
+      if (documents.has(`${path}.md`)) {
+        yDoc = documents.get(`${path}.md`)
+        yDoc.load()
+      } else {
+        yDoc =  new Y.Doc()
+        documents.set(`${path}.md`, yDoc)
       }
+
+      const yText = yDoc.getText('markdown')
+
+      yText.observe((e) => {
+        markdown = e.target.toString()
+      })
+
+      provider.awareness.on('update', (e) => console.log(e))
+
+      editor = monaco.editor.create(element, {
+        value: '', // MonacoBinding overwrites this value with the content of type
+        theme: 'vs-dark',
+        language: 'markdown',
+        minimap: { enabled: false },
+        automaticLayout: true,
+        fontSize: 24
+      })
+
+      const vimMode = initVimMode(editor)
+
+      const extension = new MonacoMarkdownExtension()
+      extension.activate(editor)
+
+      editor.addAction({
+        // An unique identifier of the contributed action.
+        id: 'toggle-markdown-preview',
+
+        // A label of the action that will be presented to the user.
+        label: 'Toggle Markdown Preview',
+
+        // An optional array of keybindings for the action.
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
+
+        contextMenuGroupId: 'navigation',
+        contextMenuOrder: 1.5,
+
+        // Method that will be executed when the action is triggered.
+        // @param editor The editor instance is passed in as a convenience
+        run: () => {
+          toggleMode()
+        }
+      })
+
+      editor.addAction({
+        // An unique identifier of the contributed action.
+        id: 'open-command-palette',
+
+        // A label of the action that will be presented to the user.
+        label: 'Open command palette',
+
+        // An optional array of keybindings for the action.
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyP],
+
+        contextMenuGroupId: 'navigation',
+        contextMenuOrder: 1.5,
+
+        // Method that will be executed when the action is triggered.
+        // @param editor The editor instance is passed in as a convenience
+        run: () => {
+          [...documents.entries()].forEach(([key]) => console.log(key))
+        }
+      })
+
+      // Attach Yjs to Monaco editor
+      binding = new MonacoBinding(
+        yText,
+        editor.getModel(),
+        new Set([editor]),
+        provider.awareness
+      )
+
+      editor.focus()
     })
-
-    const vimMode = initVimMode(editor)
-
-    const extension = new MonacoMarkdownExtension()
-    extension.activate(editor)
-
-    editor.addAction({
-      // An unique identifier of the contributed action.
-      id: 'toggle-markdown-preview',
-
-      // A label of the action that will be presented to the user.
-      label: 'Toggle Markdown Preview',
-
-      // An optional array of keybindings for the action.
-      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
-
-      contextMenuGroupId: 'navigation',
-      contextMenuOrder: 1.5,
-
-      // Method that will be executed when the action is triggered.
-      // @param editor The editor instance is passed in as a convenience
-      run: () => {
-        toggleMode()
-      }
-    })
-
-    editor.focus()
-
-    // Attach Yjs to Monaco editor
-    const binding = new MonacoBinding(
-      yText,
-      editor.getModel(),
-      new Set([editor]),
-      provider.awareness
-    )
 
     return () => {
-      binding.destroy()
+      binding?.destroy()
       leave()
     }
   })
