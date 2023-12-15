@@ -11,5 +11,8 @@ module.exports = {
     browser: true,
     es2017: true,
     node: true
+  },
+  rules: {
+    'svelte/no-at-html-tags': 'off'
   }
 }
