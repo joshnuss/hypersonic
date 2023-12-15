@@ -3,6 +3,8 @@
 
   export let user = { id: 1 }
   export let data
+
+  let mode = 'edit'
 </script>
 
 <svelte:head>
@@ -10,5 +12,9 @@
 </svelte:head>
 
 {#key data.path}
-  <Editor roomName="user-{user.id}" path={data.path} />
+  <Editor
+    bind:mode
+    roomName="user-{user.id}"
+    path={data.path}
+  />
 {/key}

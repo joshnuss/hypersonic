@@ -13,13 +13,13 @@
 
   marked.use(baseUrl('/docs/'))
 
+  export let mode = 'edit'
   export let roomName
   export let path
 
   let element
   let editor
   let binding
-  let mode = 'editor'
   let markdown = ''
 
   // Set up Liveblocks client
@@ -131,7 +131,7 @@
   })
 
   async function toggleMode() {
-    mode = mode == 'editor' ? 'preview' : 'editor'
+    mode = mode == 'edit' ? 'read' : 'edit'
     await tick()
     editor.focus()
   }
@@ -146,18 +146,18 @@
 
 <svelte:window on:keydown={keydown} />
 
-<div id="preview" class:preview={mode == 'preview'}>
+<div id="preview" class:visible={mode == 'read'}>
   {@html marked(markdown)}
 </div>
 
-<div id="editor" class:preview={mode == 'preview'} bind:this={element}></div>
+<div id="editor" class:hidden={mode == 'read'} bind:this={element}></div>
 
 <style>
   #editor {
     width: 100%;
     height: 100%;
 
-    &.preview {
+    &.hidden {
       display: none;
     }
   }
