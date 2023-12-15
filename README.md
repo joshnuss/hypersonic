@@ -1,8 +1,6 @@
-# A multi-player markdown editor
+# Hypersonic
 
-Edit your markdown anywhere.
-
-Desktop, tablet, and phone. With or without an internet connection.
+A multi-player markdown editor that works with or without an internet connection.
 
 ## Features
 
@@ -13,6 +11,7 @@ Desktop, tablet, and phone. With or without an internet connection.
 - Ultra-slim UI. No menus, toolbars, status bars, or tree views.
 - Vim mode.
 - Offline mode.
+- Fuzzy-finder <kbd>CTRL</kbd> + <kbd>P</kbd>
 - Authentication with [Auth.js](https://authjs.dev).
 
 ## License
