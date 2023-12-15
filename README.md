@@ -8,7 +8,7 @@ A multi-player markdown editor and Wiki that works with or without an internet c
 - Preview mode <kbd>CTRL</kbd> + <kbd>M</kbd>
 - Multi-user, multi-device.
 - Backed by CRDTs via [Yjs](https://yjs.dev) and [Liveblocks](https://liveblocks.io/document/yjs).
-- Ultra-slim UI. No menus, toolbars, status bars, or tree views.
+- Ultra-slim UI. No menus, toolbars, or tree views.
 - Vim mode.
 - Offline mode.
 - Fuzzy-finder <kbd>CTRL</kbd> + <kbd>P</kbd>
