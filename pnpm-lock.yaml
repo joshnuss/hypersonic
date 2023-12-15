@@ -32,6 +32,9 @@ devDependencies:
   eslint-plugin-svelte:
     specifier: ^2.30.0
     version: 2.30.0(eslint@8.28.0)(svelte@4.2.7)
+  marked:
+    specifier: ^11.1.0
+    version: 11.1.0
   monaco-editor:
     specifier: ^0.45.0
     version: 0.45.0
@@ -1196,6 +1199,12 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /marked@11.1.0:
+    resolution: {integrity: sha512-fvKJWAPEafVj1dwGwcPI5mBB/0pvViL6NlCbNDG1HOIRwwAU/jeMoFxfbRLuirO1wRH7m4yPvBqD/O1wyWvayw==}
+    engines: {node: '>= 18'}
+    hasBin: true
     dev: true
 
   /mdn-data@2.0.30:

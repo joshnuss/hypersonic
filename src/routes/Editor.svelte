@@ -5,9 +5,12 @@
   import * as Y from 'yjs'
   import { MonacoBinding } from 'y-monaco'
   import * as monaco from 'monaco-editor'
-  import { initVimMode } from 'monaco-vim';
+  import { initVimMode } from 'monaco-vim'
+  import { marked } from 'marked'
 
   let element
+  let mode = 'editor'
+  let markdown = ''
 
   // Set up Liveblocks client
   const client = createClient({
@@ -25,6 +28,10 @@
     const yText = yDoc.getText('text')
     const provider = new LiveblocksProvider(room, yDoc)
 
+    yText.observe((e) => {
+      markdown = e.target.toString()
+    })
+
     const editor = monaco.editor.create(element, {
       value: '', // MonacoBinding overwrites this value with the content of type
       theme: 'vs-dark',
@@ -40,6 +47,25 @@
 
     const vimMode = initVimMode(editor)
 
+    editor.addAction({
+      // An unique identifier of the contributed action.
+      id: 'toggle-markdown-preview',
+
+      // A label of the action that will be presented to the user.
+      label: 'Toggle Markdown Preview',
+
+      // An optional array of keybindings for the action.
+      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
+
+      contextMenuGroupId: 'navigation',
+      contextMenuOrder: 1.5,
+
+      // Method that will be executed when the action is triggered.
+      // @param editor The editor instance is passed in as a convenience
+      run: () => {
+        toggleMode()
+      }
+    })
 
     editor.focus()
 
@@ -56,14 +82,56 @@
       leave()
     }
   })
+
+  function toggleMode() {
+    mode = mode == 'editor' ? 'preview' : 'editor'
+  }
+
+  function keydown(e) {
+    if (e.ctrlKey && e.code == 'KeyM') {
+      e.preventDefault()
+      toggleMode()
+    }
+  }
 </script>
 
-<div id="editor" bind:this={element}></div>
+<svelte:window on:keydown={keydown} />
+
+<div id="preview" class:preview={mode == 'preview'}>
+  {@html marked(markdown)}
+</div>
+
+<div id="editor" class:preview={mode == 'preview'} bind:this={element}></div>
 
 <style>
   #editor {
     width: 100%;
     height: 100%;
+
+    &.preview {
+      display: none;
+    }
+  }
+
+  #preview {
+    display: none;
+    padding: 3rem;
+
+    &.preview {
+      display: block;
+    }
+  }
+
+  #preview :global(h1) {
+    margin: 2rem 0;
+  }
+
+  #preview :global(h2) {
+    margin: 1.5rem 0;
+  }
+
+  #preview :global(p) {
+    margin: 1rem 0;
   }
 
   :global(.yRemoteSelection) {
