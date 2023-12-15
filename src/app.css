@@ -1,7 +1,49 @@
 @import 'open-props/postcss/style';
 @import 'open-props/normalize.dark.min';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;900&family=Inter:wght@400;500;600;900&display=swap');
 
 body {
   height: 100vh;
   margin: 0;
+  font-family: Inter;
+}
+
+h1,
+h2 {
+  font-family: 'Source Sans Pro';
+  font-weight: 400;
+}
+
+h1 {
+  font-size: var(--font-size-8);
+  letter-spacing: -0.02em;
+  max-inline-size: var(--size-header-3);
+  margin: 4rem 0 2rem 0;
+}
+
+h2 {
+  font-size: var(--font-size-6);
+  letter-spacing: -0.02em;
+  margin: 2.5rem 0 1.5rem 0;
+}
+
+h3 {
+  font-weight: normal;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+a {
+  margin: 0;
+}
+
+#preview {
+  display: none;
+  margin: 1rem 3rem;
+
+  &.preview {
+    display: block;
+  }
 }

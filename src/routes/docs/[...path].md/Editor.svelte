@@ -129,27 +129,6 @@
     }
   }
 
-  #preview {
-    display: none;
-    padding: 3rem;
-
-    &.preview {
-      display: block;
-    }
-  }
-
-  #preview :global(h1) {
-    margin: 2rem 0;
-  }
-
-  #preview :global(h2) {
-    margin: 1.5rem 0;
-  }
-
-  #preview :global(p) {
-    margin: 1rem 0;
-  }
-
   :global(.yRemoteSelection) {
     background-color: rgb(250, 129, 0, 0.5);
   }
