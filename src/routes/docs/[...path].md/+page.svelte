@@ -6,6 +6,7 @@
   export let data
 
   const mode = persisted('mode', 'read')
+  const vim = persisted('vim', false)
 </script>
 
 <svelte:head>
@@ -15,6 +16,7 @@
 {#key data.path}
   <Editor
     bind:mode={$mode}
+    bind:vim={$vim}
     roomName="user-{user.id}"
     path={data.path}
   />

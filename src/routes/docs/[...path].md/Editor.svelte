@@ -16,11 +16,13 @@
   export let mode = 'edit'
   export let roomName
   export let path
+  export let vim = false
 
   let element
   let editor
   let binding
   let markdown = ''
+  let vimMode
 
   // Set up Liveblocks client
   const client = createClient({
@@ -68,10 +70,10 @@
         fontSize: 24
       })
 
-      const vimMode = initVimMode(editor)
-
       const extension = new MonacoMarkdownExtension()
       extension.activate(editor)
+
+      updateVim()
 
       editor.addAction({
         // An unique identifier of the contributed action.
@@ -91,6 +93,24 @@
         run: () => {
           toggleMode()
         }
+      })
+
+      editor.addAction({
+        // An unique identifier of the contributed action.
+        id: 'toggle-vim',
+
+        // A label of the action that will be presented to the user.
+        label: 'Toggle Vim',
+
+        // An optional array of keybindings for the action.
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyV],
+
+        contextMenuGroupId: 'navigation',
+        contextMenuOrder: 1.5,
+
+        // Method that will be executed when the action is triggered.
+        // @param editor The editor instance is passed in as a convenience
+        run: () => toggleVim()
       })
 
       editor.addAction({
@@ -134,6 +154,19 @@
     mode = mode == 'edit' ? 'read' : 'edit'
     await tick()
     editor.focus()
+  }
+
+  function toggleVim() {
+    vim = !vim
+    updateVim()
+  }
+
+  function updateVim() {
+    if (vim) {
+      vimMode = initVimMode(editor)
+    } else {
+      vimMode?.dispose()
+    }
   }
 
   function keydown(e) {
