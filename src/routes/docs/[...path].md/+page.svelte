@@ -9,4 +9,6 @@
   <title>{data.path}.md</title>
 </svelte:head>
 
-<Editor roomName="user-{user.id}" path={data.path} />
+{#key data.path}
+  <Editor roomName="user-{user.id}" path={data.path} />
+{/key}
