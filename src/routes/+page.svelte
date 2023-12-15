@@ -1,5 +1,1 @@
-<script>
-  import Editor from './Editor.svelte'
-</script>
-
-<Editor />
+<h1>Multi-player markdown editor</h1>

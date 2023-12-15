@@ -10,6 +10,9 @@
   import { MonacoMarkdownExtension } from 'monaco-markdown'
   import { marked } from 'marked'
 
+  export let roomName
+  export let path
+
   let element
   let editor
   let mode = 'editor'
@@ -22,13 +25,13 @@
 
   onMount(() => {
     // Enter a multiplayer room
-    const { room, leave } = client.enterRoom('my-room', {
+    const { room, leave } = client.enterRoom(roomName, {
       initialPresence: {}
     })
 
     // Set up Yjs document, shared text, and Liveblocks Yjs provider
     const yDoc = new Y.Doc()
-    const yText = yDoc.getText('text')
+    const yText = yDoc.getText(path)
     const provider = new LiveblocksProvider(room, yDoc)
 
     const persistence = new IndexeddbPersistence(room, yDoc)
