@@ -20,12 +20,14 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.30.0",
     "monaco-editor": "^0.45.0",
+    "monaco-vim": "^0.4.1",
     "open-props": "^1.6.16",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "svelte": "^4.2.7",
     "vite": "^5.0.3",
     "y-monaco": "^0.1.5",
+    "y-protocols": "^1.0.6",
     "yjs": "^13.6.10"
   },
   "type": "module"

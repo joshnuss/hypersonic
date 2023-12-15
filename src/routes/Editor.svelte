@@ -3,9 +3,9 @@
   import { createClient } from '@liveblocks/client'
   import LiveblocksProvider from '@liveblocks/yjs'
   import * as Y from 'yjs'
-
   import { MonacoBinding } from 'y-monaco'
   import * as monaco from 'monaco-editor'
+  import { initVimMode } from 'monaco-vim';
 
   let element
 
@@ -37,6 +37,9 @@
         horizontal: 'auto'
       }
     })
+
+    const vimMode = initVimMode(editor)
+
 
     editor.focus()
 
