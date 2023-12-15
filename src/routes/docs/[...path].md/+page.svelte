@@ -1,5 +1,5 @@
 <script>
-  import Editor from '../Editor.svelte'
+  import Editor from './Editor.svelte'
 
   export let user = { id: 1 }
   export let data
