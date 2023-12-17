@@ -67,7 +67,8 @@
         language: 'markdown',
         minimap: { enabled: false },
         automaticLayout: true,
-        fontSize: 24
+        fontSize: 24,
+        wordWrap: 'on'
       })
 
       const extension = new MonacoMarkdownExtension()
