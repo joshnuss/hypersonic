@@ -5,7 +5,7 @@
   export let user = { id: 1 }
   export let data
 
-  const mode = persisted('mode', 'read')
+  const mode = persisted('mode', 'edit')
   const vim = persisted('vim', false)
 </script>
 
