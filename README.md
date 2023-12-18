@@ -12,6 +12,7 @@ A multi-player markdown editor and Wiki that works with or without an internet c
 - Vim mode.
 - Offline mode.
 - Fuzzy-finder <kbd>CTRL</kbd> + <kbd>P</kbd>
+- Installable as a PWA.
 - Authentication with [Auth.js](https://authjs.dev).
 
 ## License
