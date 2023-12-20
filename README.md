@@ -17,4 +17,4 @@ A multi-player markdown editor and Wiki that works with or without an internet c
 
 ## License
 
-MIT
+BSL - Business Software License. Free for personal use.
