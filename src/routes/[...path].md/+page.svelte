@@ -2,11 +2,13 @@
   import { persisted } from 'svelte-persisted-store'
   import Editor from './Editor.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
+  import CreateDialog from '$lib/components/CreateDialog.svelte'
 
   export let user = { id: 1 }
   export let data
 
   let preferences
+  let create
 
   const mode = persisted('mode', 'write')
   const vim = persisted('vim', false)
@@ -42,7 +44,13 @@
   bind:wordWrap={$wordWrap}
   />
 
+<CreateDialog bind:this={create}/>
+
 <footer>
+  <button on:click={() => create.toggle()}>
+    create
+  </button>
+
   <button on:click={() => preferences.toggle()}>
     preferences
   </button>

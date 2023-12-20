@@ -13,7 +13,7 @@
 		<h2>{title}</h2>
 	{/if}
 
-  <form method="dialog">
+  <form method="dialog" on:submit>
 		<slot/>
 	  
     <button>OK</button>
