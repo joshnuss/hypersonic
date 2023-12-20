@@ -1,4 +1,4 @@
-<img src="static/logo.svg" width="200"/>
+<img src="static/banner.svg" alt="logo" height="150"/>
 
 # Hypersonic
 
