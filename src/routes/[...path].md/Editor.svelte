@@ -81,7 +81,9 @@
         language: 'markdown',
         minimap: { enabled: false },
         automaticLayout: true,
-        fontSize: 24,
+        fontSize: 20,
+        lineNumbers: 'on',
+        lineNumbersMinChars: 3,
         wordWrap: 'on'
       })
 
