@@ -1,7 +1,7 @@
 <script>
   import { persisted } from 'svelte-persisted-store'
   import Editor from './Editor.svelte'
-  import Preferences from '$lib/components/Preferences.svelte'
+  import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
 
   export let user = { id: 1 }
   export let data
@@ -35,7 +35,7 @@
   />
 {/key}
 
-<Preferences
+<PreferencesDialog
   bind:this={preferences}
   bind:fontSize={$fontSize}
   bind:lineNumbers={$lineNumbers}
