@@ -90,6 +90,7 @@
         language: 'markdown',
         minimap: { enabled: false },
         automaticLayout: true,
+        codeLens: false,
         fontSize,
         lineNumbers,
         lineNumbersMinChars: 3,
