@@ -21,8 +21,24 @@
   let element
   let editor
   let binding
+  let yTitle
+  let documents
   let markdown = ''
   let vimMode
+
+  $: html = marked(markdown)
+  $: {
+    const match = html.match(/<h1>([^<]+)<\/h1>/)
+
+    if (match) {
+      const title = match[1]
+
+      if (yTitle && yTitle.toString() !== title) {
+        yTitle.delete(0, yTitle.toString().length)
+        yTitle.insert(0, title)
+      }
+    }
+  }
 
   // Set up Liveblocks client
   const client = createClient({
@@ -40,7 +56,7 @@
     const persistence = new IndexeddbPersistence(room, rootDoc)
 
     provider.on('synced', () => {
-      const documents = rootDoc.getMap('documents')
+      documents = rootDoc.getMap('documents')
 
       // Set up Yjs document, shared text, and Liveblocks Yjs provider
       let yDoc
@@ -54,6 +70,7 @@
       }
 
       const yText = yDoc.getText('markdown')
+      yTitle = yDoc.getText('title')
 
       yText.observe((e) => {
         markdown = e.target.toString()
@@ -181,7 +198,7 @@
 <svelte:window on:keydown={keydown} />
 
 <div id="preview" class:visible={mode == 'read'}>
-  {@html marked(markdown)}
+  {@html html}
 </div>
 
 <div id="editor" class:hidden={mode == 'read'} bind:this={element}></div>
