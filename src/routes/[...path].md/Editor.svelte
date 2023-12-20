@@ -166,7 +166,7 @@
   })
 
   async function toggleMode() {
-    mode = mode == 'edit' ? 'read' : 'edit'
+    mode = mode == 'write' ? 'read' : 'write'
     await tick()
     editor.focus()
   }
