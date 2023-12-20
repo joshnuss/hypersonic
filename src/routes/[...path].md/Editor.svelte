@@ -10,7 +10,7 @@
   import { MonacoMarkdownExtension } from 'monaco-markdown'
   import { marked } from 'marked'
 
-  export let mode = 'edit'
+  export let mode
   export let roomName
   export let path
   export let vim = false

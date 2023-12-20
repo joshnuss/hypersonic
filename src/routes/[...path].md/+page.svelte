@@ -5,8 +5,12 @@
   export let user = { id: 1 }
   export let data
 
-  const mode = persisted('mode', 'edit')
+  const mode = persisted('mode', 'write')
   const vim = persisted('vim', false)
+
+  function toggleMode() {
+    $mode = $mode == 'write' ? 'read' : 'write'
+  }
 </script>
 
 <svelte:head>
@@ -21,3 +25,18 @@
     path={data.path}
   />
 {/key}
+
+<footer>
+  <button on:click={toggleMode}>
+    {$mode == 'write' ? 'read' : 'write'}
+  </button>
+</footer>
+
+<style>
+  footer {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    padding: 5px;
+  }
+</style>
