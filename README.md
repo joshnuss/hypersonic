@@ -1,3 +1,5 @@
+<img src="static/logo.svg" width="200"/>
+
 # Hypersonic
 
 A multi-player markdown editor and Wiki that works with or without an internet connection.
