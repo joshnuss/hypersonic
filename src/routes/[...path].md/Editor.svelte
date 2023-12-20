@@ -9,9 +9,6 @@
   import { initVimMode } from 'monaco-vim'
   import { MonacoMarkdownExtension } from 'monaco-markdown'
   import { marked } from 'marked'
-  import { baseUrl } from 'marked-base-url'
-
-  marked.use(baseUrl('/docs/'))
 
   export let mode = 'edit'
   export let roomName
