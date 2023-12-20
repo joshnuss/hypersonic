@@ -13,7 +13,10 @@
   export let mode
   export let roomName
   export let path
-  export let vim = false
+  export let vim
+  export let fontSize
+  export let wordWrap
+  export let lineNumbers
 
   let element
   let editor
@@ -36,6 +39,12 @@
       }
     }
   }
+
+  $: editor?.updateOptions({
+    fontSize,
+    lineNumbers,
+    wordWrap
+  })
 
   // Set up Liveblocks client
   const client = createClient({
@@ -81,10 +90,10 @@
         language: 'markdown',
         minimap: { enabled: false },
         automaticLayout: true,
-        fontSize: 20,
-        lineNumbers: 'on',
+        fontSize,
+        lineNumbers,
         lineNumbersMinChars: 3,
-        wordWrap: 'on'
+        wordWrap
       })
 
       const extension = new MonacoMarkdownExtension()
