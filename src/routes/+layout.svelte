@@ -1,6 +1,6 @@
 <script>
   import '../app.css'
-  import { dev } from '$app/env'
+  import { dev } from '$app/environment'
   import { PUBLIC_FATHOM_SITE_CODE } from '$env/static/public'
 </script>
 
