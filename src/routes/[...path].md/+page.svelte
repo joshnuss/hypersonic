@@ -3,12 +3,15 @@
   import Editor from './Editor.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
+  import FileDialog from '$lib/components/FileDialog.svelte'
 
   export let user = { id: 1 }
   export let data
 
   let preferences
   let create
+  let files
+  let documents
 
   const mode = persisted('mode', 'write')
   const vim = persisted('vim', false)
@@ -34,6 +37,7 @@
     bind:lineNumbers={$lineNumbers}
     roomName="user-{user.id}"
     path={data.path}
+    bind:documents
   />
 {/key}
 
@@ -46,8 +50,13 @@
   />
 
 <CreateDialog bind:this={create}/>
+<FileDialog bind:this={files} bind:documents/>
 
 <footer>
+  <button on:click={() => files.toggle()}>
+    files
+  </button>
+
   <button on:click={() => create.toggle()}>
     create
   </button>

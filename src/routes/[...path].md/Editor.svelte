@@ -12,6 +12,7 @@
 
   export let mode
   export let roomName
+  export let documents
   export let path
   export let vim
   export let fontSize
@@ -22,7 +23,6 @@
   let editor
   let binding
   let yTitle
-  let documents
   let markdown = ''
   let vimMode
 
