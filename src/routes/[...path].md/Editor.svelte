@@ -46,6 +46,8 @@
     wordWrap
   })
 
+  $: editor && updateVim(vim)
+
   // Set up Liveblocks client
   const client = createClient({
     authEndpoint: '/api/liveblocks-auth'

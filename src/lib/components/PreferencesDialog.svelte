@@ -6,6 +6,7 @@
 	export let fontSize
 	export let wordWrap
 	export let lineNumbers
+  export let vimMode
 
 	export function toggle() { dialog.toggle() }
 </script>
@@ -24,5 +25,10 @@
   <label>
     <input bind:checked={lineNumbers} type="checkbox"/>
     <span>Line Numbers</span>
+  </label>
+
+  <label>
+    <input bind:checked={vimMode} type="checkbox"/>
+    <span>Vim mode</span>
   </label>
 </Dialog>

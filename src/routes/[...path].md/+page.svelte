@@ -42,6 +42,7 @@
   bind:fontSize={$fontSize}
   bind:lineNumbers={$lineNumbers}
   bind:wordWrap={$wordWrap}
+  bind:vimMode={$vim}
   />
 
 <CreateDialog bind:this={create}/>
