@@ -73,6 +73,10 @@
       } else {
         yDoc =  new Y.Doc()
         documents.set(`${path}.md`, yDoc)
+        const titleized = titlelize(path)
+        yDoc.getText('title').insert(0, titleized)
+        yDoc.getText('markdown').insert(0, `# ${titleized}`)
+        mode = 'write'
       }
 
       const yText = yDoc.getText('markdown')
@@ -201,6 +205,12 @@
       e.preventDefault()
       toggleMode()
     }
+  }
+
+  function titlelize(path) {
+    const [first, ...rest] = path.replace(/[-_\/\\]/, ' ')
+
+    return first.toUpperCase() + rest.join('')
   }
 </script>
 
