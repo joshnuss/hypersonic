@@ -6,7 +6,7 @@
   import { PUBLIC_FATHOM_SITE_CODE } from '$env/static/public'
   import * as Fathom from 'fathom-client'
 
-  export let analyticsEnabled = !dev && PUBLIC_FATHOM_SITE_CODE
+  let analyticsEnabled = !dev && PUBLIC_FATHOM_SITE_CODE
 
   onMount(() => {
     if (analyticsEnabled) {
