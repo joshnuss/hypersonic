@@ -74,13 +74,12 @@
     z-index: var(--layer-2);
     background: var(--gray-8);
     color: white;
-    opacity: 0.3;
+    opacity: 0.8;
     box-shadow: none;
     transition: all 0.2s var(--ease-squish-5);
 
-    &:hover {
+    &:hover, .open & {
       opacity: 1;
-      background: var(--gray-4);
       box-shadow: var(--shadow-5);
     }
   }
