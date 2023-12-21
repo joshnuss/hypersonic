@@ -32,6 +32,7 @@
 
   export function toggle() {
     dialog.togglePopover()
+    input.focus()
   }
 
   function keydown(e) {

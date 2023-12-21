@@ -4,9 +4,11 @@
 
   let dialog
   let path
+  let input
 
   export function toggle() {
     dialog.toggle()
+    input.focus()
   }
 
   function submit() {
@@ -23,5 +25,5 @@
 </script>
 
 <Dialog id="create-dialog" bind:this={dialog} title="Create" on:submit={submit}>
-  <input bind:value={path} type="string" placeholder="some/path/file.md" />
+  <input bind:value={path} bind:this={input} type="string" placeholder="some/path/file.md" />
 </Dialog>
