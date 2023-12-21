@@ -41,6 +41,7 @@
     roomName="user-{user.id}"
     path={data.path}
     bind:documents
+    on:find={() => files.toggle()}
   />
 {/key}
 

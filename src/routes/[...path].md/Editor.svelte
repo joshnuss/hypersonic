@@ -1,5 +1,5 @@
 <script>
-  import { onMount, tick } from 'svelte'
+  import { onMount, tick, createEventDispatcher } from 'svelte'
   import { createClient } from '@liveblocks/client'
   import LiveblocksProvider from '@liveblocks/yjs'
   import * as Y from 'yjs'
@@ -18,6 +18,8 @@
   export let fontSize
   export let wordWrap
   export let lineNumbers
+
+  const dispatch = createEventDispatcher()
 
   let element
   let editor
@@ -154,7 +156,7 @@
         label: 'Open command palette',
 
         // An optional array of keybindings for the action.
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyP],
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK],
 
         contextMenuGroupId: 'navigation',
         contextMenuOrder: 1.5,
@@ -162,7 +164,7 @@
         // Method that will be executed when the action is triggered.
         // @param editor The editor instance is passed in as a convenience
         run: () => {
-          ;[...documents.entries()].forEach(([key]) => console.log(key))
+          dispatch('find')
         }
       })
 
@@ -173,6 +175,8 @@
     })
 
     return () => {
+      console.log('disposing')
+      editor.dispose()
       binding?.destroy()
       leave()
     }
