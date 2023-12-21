@@ -73,6 +73,8 @@
       goto('/' + path)
     }
 
+    dialog.hidePopover()
+
     pattern = ''
     focusedIndex = 0
   }
@@ -115,11 +117,10 @@
   }
 
   [popover] {
-    --width: 400px;
+    --width: 300px;
     position: fixed;
     top: 20vh;
     left: calc(50vw - calc(var(--width) / 2));
-
   }
 
   [popover]:popover-open {
@@ -137,7 +138,7 @@
     box-shadow: var(--shdadow-4);
   }
 
-  dialog form {
+  form {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

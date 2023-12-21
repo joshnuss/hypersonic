@@ -1,4 +1,5 @@
 <script>
+  import RadialMenu from '$lib/components/RadialMenu.svelte'
   import Icon from '@iconify/svelte'
   import { persisted } from 'svelte-persisted-store'
   import Editor from './Editor.svelte'
@@ -13,6 +14,7 @@
   let create
   let files
   let documents
+  let menu
 
   const mode = persisted('mode', 'write')
   const vim = persisted('vim', false)
@@ -54,25 +56,27 @@
 <FileDialog bind:this={files} bind:documents />
 
 <footer>
-  <button on:click={() => files.toggle()} title="Search">
-    <Icon icon="mdi:search"/>
-  </button>
+  <RadialMenu bind:this={menu} count=4>
+    <button style:--index=0 on:click={() => {menu.collapse(); toggleMode()}} title={$mode == 'write' ? 'Preview' : 'Edit'}>
+      {#if $mode == 'write'}
+        <Icon icon="mdi:file-eye"/>
+      {:else}
+        <Icon icon="mdi:file-edit"/>
+      {/if}
+    </button>
 
-  <button on:click={() => create.toggle()} title="New file">
-    <Icon icon="mdi:file-plus"/>
-  </button>
+    <button style:--index=1 on:click={() => {menu.collapse(); files.toggle()}} title="Search">
+      <Icon icon="mdi:search"/>
+    </button>
 
-  <button on:click={() => preferences.toggle()} title="Preferences">
-    <Icon icon="mdi:settings"/>
-  </button>
+    <button style:--index=2 on:click={() => {menu.collapse(); create.toggle()}} title="New file">
+      <Icon icon="mdi:file-plus"/>
+    </button>
 
-  <button on:click={toggleMode} title={$mode == 'write' ? 'Preview' : 'Edit'}>
-    {#if $mode == 'write'}
-      <Icon icon="mdi:file-eye"/>
-    {:else}
-      <Icon icon="mdi:file-edit"/>
-    {/if}
-  </button>
+    <button style:--index=3 on:click={() => {menu.collapse(); preferences.toggle()}} title="Preferences">
+      <Icon icon="mdi:settings"/>
+    </button>
+  </RadialMenu>
 </footer>
 
 <style>
@@ -80,20 +84,15 @@
     position: fixed;
     bottom: 0px;
     right: 0px;
-    padding: var(--size-4);
+    width: 100vw;
+    height: 100px;
     display: flex;
+    justify-content: center;
+    padding: var(--size-4);
     gap: 0;
-
-    & button {
-      aspect-ratio: 1;
-      width: 35px;
-      display: flex;
-      align-items: center;
-      background: none;
-    }
   }
 
-  footer :global(svg) {
+  footer button :global(svg) {
     width: 35px;
   }
 </style>
