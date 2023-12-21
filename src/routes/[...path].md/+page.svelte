@@ -92,7 +92,7 @@
       }}
       title="New file"
     >
-      <Icon icon="mdi:file-plus" />
+      <Icon icon="mdi:plus" />
     </button>
 
     <button
@@ -111,7 +111,7 @@
 <style>
   footer {
     position: fixed;
-    bottom: 0px;
+    bottom: 4vh;
     right: calc(50% - 50px);
     width: 100px;
     height: 100px;

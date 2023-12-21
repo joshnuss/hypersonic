@@ -70,7 +70,6 @@
   }
 
   button.main {
-    position: absolute;
     z-index: var(--layer-2);
     background: var(--gray-8);
     color: white;
