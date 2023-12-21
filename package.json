@@ -19,6 +19,7 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.30.0",
+    "fathom-client": "^3.6.0",
     "fuse.js": "^7.0.0",
     "marked": "^11.1.0",
     "monaco-editor": "^0.45.0",
