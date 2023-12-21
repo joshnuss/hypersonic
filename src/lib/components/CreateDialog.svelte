@@ -22,6 +22,6 @@
   }
 </script>
 
-<Dialog bind:this={dialog} title="Create" on:submit={submit}>
+<Dialog id="create-dialog" bind:this={dialog} title="Create" on:submit={submit}>
   <input bind:value={path} type="string" placeholder="some/path/file.md" />
 </Dialog>

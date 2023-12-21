@@ -1,30 +1,41 @@
 <script>
+  import { createEventDispatcher } from 'svelte'
+
+  export let id
   export let title = null
 
   let dialog
 
+  const dispatch = createEventDispatcher()
+
   export function toggle() {
-    dialog.open ? close() : open()
+    dialog.togglePopover()
   }
   export function open() {
-    dialog.showModal()
+    dialog.showPopover()
   }
   export function close() {
-    dialog.close()
+    dialog.hidePopover()
+  }
+
+  function submit() {
+    close()
+
+    dispatch('submit')
   }
 </script>
 
-<dialog bind:this={dialog}>
+<div {id} bind:this={dialog} popover>
   {#if title}
     <h2>{title}</h2>
   {/if}
 
-  <form method="dialog" on:submit>
+  <form on:submit|preventDefault={submit}>
     <slot />
 
     <button>OK</button>
   </form>
-</dialog>
+</div>
 
 <style>
   ::backdrop {
@@ -34,7 +45,15 @@
     animation: 0.3s fade-in forwards;
   }
 
-  dialog[open] {
+  [popover] {
+    --width: 400px;
+    width: var(--width);
+    position: fixed;
+    top: 20%;
+    left: calc(50vw - calc(var(--width)/2))
+  }
+
+  [popover]:popover-open {
     padding: var(--size-7);
     color: var(--gray-2);
     border-radius: var(--radius-2);

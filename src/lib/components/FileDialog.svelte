@@ -31,7 +31,7 @@
   }
 
   export function toggle() {
-    dialog.open ? dialog.close() : dialog.showModal()
+    dialog.togglePopover()
   }
 
   function keydown(e) {
@@ -78,7 +78,7 @@
   }
 </script>
 
-<dialog bind:this={dialog}>
+<div bind:this={dialog} popover>
   <form method="dialog" on:submit={submit}>
     <input
       name="search"
@@ -104,7 +104,7 @@
       {/each}
     </div>
   </form>
-</dialog>
+</div>
 
 <style>
   ::backdrop {
@@ -114,7 +114,15 @@
     animation: 0.3s fade-in forwards;
   }
 
-  dialog[open] {
+  [popover] {
+    --width: 400px;
+    position: fixed;
+    top: 20vh;
+    left: calc(50vw - calc(var(--width) / 2));
+
+  }
+
+  [popover]:popover-open {
     padding: 0;
     border: solid 1px var(--gray-7);
     color: var(--gray-2);
@@ -136,6 +144,7 @@
   }
 
   input {
+    width: 100%;
     border-radius: 0;
     padding: 8px 1rem;
 
