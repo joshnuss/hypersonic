@@ -206,6 +206,11 @@
       e.preventDefault()
       toggleMode()
     }
+
+    if (e.ctrlKey && e.code == 'KeyK') {
+      e.preventDefault()
+      dispatch('find')
+    }
   }
 
   function titlelize(path) {
