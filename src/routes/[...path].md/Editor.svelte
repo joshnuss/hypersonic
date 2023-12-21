@@ -104,7 +104,12 @@
         fontSize,
         lineNumbers,
         lineNumbersMinChars: 3,
-        wordWrap
+        wordWrap,
+        quickSuggestions: {
+          strings: false,
+          comments: false,
+          other: false
+        }
       })
 
       const extension = new MonacoMarkdownExtension()
