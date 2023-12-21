@@ -56,25 +56,53 @@
 <FileDialog bind:this={files} bind:documents />
 
 <footer>
-  <RadialMenu bind:this={menu} count=4>
-    <button style:--index=0 on:click={() => {menu.collapse(); toggleMode()}} title={$mode == 'write' ? 'Preview' : 'Edit'}>
+  <RadialMenu bind:this={menu} count="4">
+    <button
+      style:--index="0"
+      on:click={() => {
+        menu.collapse()
+        toggleMode()
+      }}
+      title={$mode == 'write' ? 'Preview' : 'Edit'}
+    >
       {#if $mode == 'write'}
-        <Icon icon="mdi:file-eye"/>
+        <Icon icon="mdi:file-eye" />
       {:else}
-        <Icon icon="mdi:file-edit"/>
+        <Icon icon="mdi:file-edit" />
       {/if}
     </button>
 
-    <button style:--index=1 on:click={() => {menu.collapse(); files.toggle()}} title="Search">
-      <Icon icon="mdi:search"/>
+    <button
+      style:--index="1"
+      on:click={() => {
+        menu.collapse()
+        files.toggle()
+      }}
+      title="Search"
+    >
+      <Icon icon="mdi:search" />
     </button>
 
-    <button style:--index=2 on:click={() => {menu.collapse(); create.toggle()}} title="New file">
-      <Icon icon="mdi:file-plus"/>
+    <button
+      style:--index="2"
+      on:click={() => {
+        menu.collapse()
+        create.toggle()
+      }}
+      title="New file"
+    >
+      <Icon icon="mdi:file-plus" />
     </button>
 
-    <button style:--index=3 on:click={() => {menu.collapse(); preferences.toggle()}} title="Preferences">
-      <Icon icon="mdi:settings"/>
+    <button
+      style:--index="3"
+      on:click={() => {
+        menu.collapse()
+        preferences.toggle()
+      }}
+      title="Preferences"
+    >
+      <Icon icon="mdi:settings" />
     </button>
   </RadialMenu>
 </footer>

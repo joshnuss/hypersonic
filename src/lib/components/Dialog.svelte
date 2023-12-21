@@ -50,7 +50,7 @@
     width: var(--width);
     position: fixed;
     top: 20%;
-    left: calc(50vw - calc(var(--width)/2))
+    left: calc(50vw - calc(var(--width) / 2));
   }
 
   [popover]:popover-open {
