@@ -2,7 +2,7 @@
 
 # Hypersonic
 
-A multi-player markdown editor and wiki that works with or without an internet connection.
+A multi-player markdown editor and wiki. Works offline too!
 
 ## Features
 
