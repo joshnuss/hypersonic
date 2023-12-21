@@ -73,7 +73,7 @@
         yDoc = documents.get(`${path}.md`)
         yDoc.load()
       } else {
-        yDoc =  new Y.Doc()
+        yDoc = new Y.Doc()
         documents.set(`${path}.md`, yDoc)
         const titleized = titlelize(path)
         yDoc.getText('title').insert(0, titleized)
@@ -162,17 +162,12 @@
         // Method that will be executed when the action is triggered.
         // @param editor The editor instance is passed in as a convenience
         run: () => {
-          [...documents.entries()].forEach(([key]) => console.log(key))
+          ;[...documents.entries()].forEach(([key]) => console.log(key))
         }
       })
 
       // Attach Yjs to Monaco editor
-      binding = new MonacoBinding(
-        yText,
-        editor.getModel(),
-        new Set([editor]),
-        provider.awareness
-      )
+      binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
 
       editor.focus()
     })

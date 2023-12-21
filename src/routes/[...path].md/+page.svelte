@@ -47,23 +47,17 @@
   bind:lineNumbers={$lineNumbers}
   bind:wordWrap={$wordWrap}
   bind:vimMode={$vim}
-  />
+/>
 
-<CreateDialog bind:this={create}/>
-<FileDialog bind:this={files} bind:documents/>
+<CreateDialog bind:this={create} />
+<FileDialog bind:this={files} bind:documents />
 
 <footer>
-  <button on:click={() => files.toggle()}>
-    files
-  </button>
+  <button on:click={() => files.toggle()}>files</button>
 
-  <button on:click={() => create.toggle()}>
-    create
-  </button>
+  <button on:click={() => create.toggle()}>create</button>
 
-  <button on:click={() => preferences.toggle()}>
-    preferences
-  </button>
+  <button on:click={() => preferences.toggle()}>preferences</button>
 
   <button on:click={toggleMode}>
     {$mode == 'write' ? 'read' : 'write'}

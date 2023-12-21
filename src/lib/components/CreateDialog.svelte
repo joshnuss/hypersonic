@@ -1,25 +1,27 @@
 <script>
-	import Dialog from './Dialog.svelte'
-	import { goto } from '$app/navigation'
+  import Dialog from './Dialog.svelte'
+  import { goto } from '$app/navigation'
 
-	let dialog
-	let path
+  let dialog
+  let path
 
-	export function toggle() { dialog.toggle() }
+  export function toggle() {
+    dialog.toggle()
+  }
 
-	function submit() {
-		if (!path) return
+  function submit() {
+    if (!path) return
 
-		if (!path.endsWith('.md')) {
-			path += '.md'
-		}
+    if (!path.endsWith('.md')) {
+      path += '.md'
+    }
 
-		goto('/' + path)
+    goto('/' + path)
 
-		path = ''
-	}
+    path = ''
+  }
 </script>
 
 <Dialog bind:this={dialog} title="Create" on:submit={submit}>
-  <input bind:value={path} type="string" placeholder="some/path/file.md"/>
+  <input bind:value={path} type="string" placeholder="some/path/file.md" />
 </Dialog>
