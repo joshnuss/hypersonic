@@ -20,7 +20,7 @@ h1 {
   font-size: var(--font-size-8);
   letter-spacing: -0.02em;
   max-inline-size: var(--size-header-3);
-  margin: 4rem 0 2rem 0;
+  margin: 0 0 2rem 0;
 }
 
 h2 {
@@ -41,9 +41,15 @@ a {
   margin: 0;
 }
 
+button {
+  border-radius: var(--radius-2);
+}
+
 #preview {
+  height: 100%;
   display: none;
-  margin: 1rem 3rem;
+  margin: 0 3rem;
+  padding: 2rem 0;
 
   &.visible {
     display: block;
