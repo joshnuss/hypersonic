@@ -1,4 +1,5 @@
 <script>
+  import '@oddbird/popover-polyfill'
   import '../app.css'
   import { onMount } from 'svelte'
   import { dev, browser } from '$app/environment'
