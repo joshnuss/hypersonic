@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation'
 
   export let documents
+  export let titles
 
   let dialog
   let pattern
@@ -10,15 +11,8 @@
   let focusedIndex = 0
   let buttons = []
 
-  $: items = [...(documents?.entries() || [])].map(([path, yDoc]) => {
-    yDoc.load()
-    const title = yDoc.getText('title').toString()
+  let items = []
 
-    return {
-      path,
-      title
-    }
-  })
   $: search = createSearch(items)
   $: results = search.filter(pattern)
 
@@ -31,6 +25,17 @@
   }
 
   export function toggle() {
+    const paths = [...(documents?.keys() || [])]
+
+    items = paths.map((path) => {
+      const title = titles?.get(path) || ''
+
+      return {
+        path,
+        title
+      }
+    })
+
     dialog.togglePopover()
     input.focus()
   }

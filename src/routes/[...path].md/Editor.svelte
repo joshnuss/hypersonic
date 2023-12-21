@@ -13,6 +13,7 @@
   export let mode
   export let roomName
   export let documents
+  export let titles
   export let path
   export let vim
   export let fontSize
@@ -38,6 +39,7 @@
       if (yTitle && yTitle.toString() !== title) {
         yTitle.delete(0, yTitle.toString().length)
         yTitle.insert(0, title)
+        titles.set(`${path}.md`, title)
       }
     }
   }
@@ -67,6 +69,7 @@
 
     provider.on('synced', () => {
       documents = rootDoc.getMap('documents')
+      titles = rootDoc.getMap('titles')
 
       // Set up Yjs document, shared text, and Liveblocks Yjs provider
       let yDoc
@@ -80,6 +83,7 @@
         const titleized = titlelize(path)
         yDoc.getText('title').insert(0, titleized)
         yDoc.getText('markdown').insert(0, `# ${titleized}`)
+        titles.set(`${path}.md`, titleized)
         mode = 'write'
       }
 

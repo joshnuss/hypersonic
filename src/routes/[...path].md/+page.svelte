@@ -14,6 +14,7 @@
   let create
   let files
   let documents
+  let titles
   let menu
 
   const mode = persisted('mode', 'write')
@@ -41,6 +42,7 @@
     roomName="user-{user.id}"
     path={data.path}
     bind:documents
+    bind:titles
     on:find={() => files.toggle()}
   />
 {/key}
@@ -54,7 +56,7 @@
 />
 
 <CreateDialog bind:this={create} />
-<FileDialog bind:this={files} bind:documents />
+<FileDialog bind:this={files} bind:documents bind:titles />
 
 <footer>
   <RadialMenu bind:this={menu} count="4">
