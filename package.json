@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "@iconify/svelte": "^3.1.6",
     "@liveblocks/client": "^1.9.0",
     "@liveblocks/node": "^1.9.0",
     "@liveblocks/yjs": "^1.9.0",

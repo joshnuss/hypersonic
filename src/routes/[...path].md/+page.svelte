@@ -1,4 +1,5 @@
 <script>
+  import Icon from '@iconify/svelte'
   import { persisted } from 'svelte-persisted-store'
   import Editor from './Editor.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
@@ -53,14 +54,24 @@
 <FileDialog bind:this={files} bind:documents />
 
 <footer>
-  <button on:click={() => files.toggle()}>files</button>
+  <button on:click={() => files.toggle()} title="Search">
+    <Icon icon="mdi:search"/>
+  </button>
 
-  <button on:click={() => create.toggle()}>create</button>
+  <button on:click={() => create.toggle()} title="New file">
+    <Icon icon="mdi:file-plus"/>
+  </button>
 
-  <button on:click={() => preferences.toggle()}>preferences</button>
+  <button on:click={() => preferences.toggle()} title="Preferences">
+    <Icon icon="mdi:settings"/>
+  </button>
 
-  <button on:click={toggleMode}>
-    {$mode == 'write' ? 'read' : 'write'}
+  <button on:click={toggleMode} title={$mode == 'write' ? 'Preview' : 'Edit'}>
+    {#if $mode == 'write'}
+      <Icon icon="mdi:file-eye"/>
+    {:else}
+      <Icon icon="mdi:file-edit"/>
+    {/if}
   </button>
 </footer>
 
@@ -69,6 +80,20 @@
     position: fixed;
     bottom: 0px;
     right: 0px;
-    padding: 5px;
+    padding: var(--size-4);
+    display: flex;
+    gap: 0;
+
+    & button {
+      aspect-ratio: 1;
+      width: 35px;
+      display: flex;
+      align-items: center;
+      background: none;
+    }
+  }
+
+  footer :global(svg) {
+    width: 35px;
   }
 </style>
