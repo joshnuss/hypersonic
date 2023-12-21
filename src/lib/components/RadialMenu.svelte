@@ -39,14 +39,14 @@
     border: solid 1px var(--gray-2);
     background: white;
 
-    & :global(svg) {
-      transform: rotate(calc(var(--index) * calc(calc(180deg - var(--slice)) - 1)));
-    }
-
     &:hover {
-      background-color: var(--gray-1);
+      background-color: var(--purple-8);
       border-color: var(--gray-3);
     }
+  }
+
+  .submenu :global(svg) {
+    transform: rotate(calc(var(--index) * calc(var(--slice) * -1)));
   }
 
   .open :global(button) {
@@ -74,10 +74,12 @@
     z-index: var(--layer-2);
     background: var(--gray-8);
     color: white;
+    opacity: 0.3;
     box-shadow: none;
     transition: all 0.2s var(--ease-squish-5);
 
     &:hover {
+      opacity: 1;
       background: var(--gray-4);
       box-shadow: var(--shadow-5);
     }
