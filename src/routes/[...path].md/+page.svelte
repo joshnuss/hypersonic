@@ -44,6 +44,7 @@
     bind:documents
     bind:titles
     on:find={() => files.toggle()}
+    on:create={() => create.toggle()}
   />
 {/key}
 

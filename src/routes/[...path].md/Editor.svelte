@@ -179,6 +179,26 @@
         }
       })
 
+      editor.addAction({
+        // An unique identifier of the contributed action.
+        id: 'new-file',
+
+        // A label of the action that will be presented to the user.
+        label: 'New file',
+
+        // An optional array of keybindings for the action.
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN],
+
+        contextMenuGroupId: 'navigation',
+        contextMenuOrder: 1.5,
+
+        // Method that will be executed when the action is triggered.
+        // @param editor The editor instance is passed in as a convenience
+        run: () => {
+          dispatch('create')
+        }
+      })
+
       // Attach Yjs to Monaco editor
       binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
 
@@ -221,6 +241,11 @@
     if (e.ctrlKey && e.code == 'KeyK') {
       e.preventDefault()
       dispatch('find')
+    }
+
+    if (e.ctrlKey && e.altKey && e.code == 'KeyN') {
+      e.preventDefault()
+      dispatch('create')
     }
   }
 
