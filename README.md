@@ -9,7 +9,7 @@ A multi-player markdown editor and wiki. Works offline too!
 - Markdown editor using VSCode's Monaco.
 - Multi-user, multi-device.
 - Backed by CRDTs via [Yjs](https://yjs.dev) and [Liveblocks](https://liveblocks.io/document/yjs).
-- Ultra-slim UI. No menus, toolbars, or tree views.
+- Ultra-slim UI. Minimal menus & toolbars.
 - Read & Write mode <kbd>CTRL</kbd> + <kbd>M</kbd>
 - Vim mode.
 - Offline mode.
