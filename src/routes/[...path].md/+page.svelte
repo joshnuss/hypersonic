@@ -105,7 +105,7 @@
   }
 
   footer {
-    top: calc(100vh - 130px);
+    top: calc(100dvh - 130px);
   }
 
   nav button {
