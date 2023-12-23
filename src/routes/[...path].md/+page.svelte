@@ -26,8 +26,8 @@
     $mode = $mode == 'write' ? 'read' : 'write'
   }
 
-  function resize() {
-    keyboardOpen = window.visualViewport.height != window.innerHeight
+  function resize(e) {
+    keyboardOpen = Math.round(window.visualViewport.height) != window.innerHeight
   }
 </script>
 
