@@ -27,7 +27,7 @@
   }
 
   function resize(e) {
-    keyboardOpen = Math.round(window.visualViewport.height) != window.innerHeight
+    keyboardOpen = Math.round(e.target.visualViewport.height) != e.target.document.documentElement.clientHeight
   }
 </script>
 
