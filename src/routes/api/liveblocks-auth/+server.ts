@@ -1,28 +1,26 @@
 import { Liveblocks } from '@liveblocks/node'
 import { SECRET_LIVEBLOCKS_KEY } from '$env/static/private'
+import { error } from '@sveltejs/kit'
 
 const liveblocks = new Liveblocks({
   secret: SECRET_LIVEBLOCKS_KEY
 })
 
-export async function POST({ request }) {
-  // Get the current user from your database
-  const user = { id: '1', info: { name: 'Josh' } } //__getUserFromDB__(request)
+export async function POST({ request, locals }) {
+  const { user } = await locals.getSession()
 
-  // Start an auth session inside your endpoint
-  const session = liveblocks.prepareSession(
-    user.id,
-    { userInfo: user.info } // Optional
-  )
+  if (!user) {
+    throw error(401)
+  }
+
+  const session = liveblocks.prepareSession(user.id, user)
 
   // Implement your own security, and give the user access to the room
   const { room } = await request.json()
-  // if (room && __shouldUserHaveAccess__(user, room)) {
-  //   session.allow(room, session.FULL_ACCESS)
-  // }
-  session.allow(room, session.FULL_ACCESS)
 
-  console.log({ room, user })
+  if (room && room.startsWith('user:') && room.split(':')[1] == user.id.toString()) {
+    session.allow(room, session.FULL_ACCESS)
+  }
 
   // Authorize the user and return the result
   const { status, body } = await session.authorize()

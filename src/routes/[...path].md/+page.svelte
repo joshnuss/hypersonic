@@ -6,8 +6,9 @@
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
 
-  export let user = { id: 1 }
   export let data
+
+  $: ({ user } = data.session)
 
   let preferences
   let create
@@ -57,7 +58,7 @@
     bind:fontSize={$fontSize}
     bind:wordWrap={$wordWrap}
     bind:lineNumbers={$lineNumbers}
-    roomName="user-{user.id}"
+    roomName="user:{user.id}"
     path={data.path}
     bind:documents
     bind:titles
