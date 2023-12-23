@@ -116,6 +116,9 @@
         }
       })
 
+      // for debugging
+      window.editor = editor
+
       const extension = new MonacoMarkdownExtension()
       extension.activate(editor)
 
