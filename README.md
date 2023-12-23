@@ -19,14 +19,12 @@ A multi-player markdown editor and wiki. Works offline too!
 
 ## Shortcuts
 
-|------------------------|---------------------------------------------------|
 | Action                 | Shortcut                                          |
 |------------------------|---------------------------------------------------|
 | Search files           | <kbd>CTRL</kbd> + <kbd>K</kbd>                    |
 | New file               | <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>N</kbd> |
 | Toggle Read/Write Mode | <kbd>CTRL</kbd> + <kbd>M</kbd>                    |
 | Toggle Vim             | <kbd>CTRL</kbd> + <kbd>SHIFT</kbd>+ <kbd>V</kbd>  |
-|------------------------|---------------------------------------------------|
 
 ## License
 
