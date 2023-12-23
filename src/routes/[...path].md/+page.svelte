@@ -14,6 +14,7 @@
   let files
   let documents
   let titles
+  let keyboardOpen = false
 
   const mode = persisted('mode', 'write')
   const vim = persisted('vim', false)
@@ -24,7 +25,13 @@
   function toggleMode() {
     $mode = $mode == 'write' ? 'read' : 'write'
   }
+
+  function resize() {
+    keyboardOpen = window.visualViewport.height != window.innerHeight
+  }
 </script>
+
+<svelte:window on:resize={resize}/>
 
 <svelte:head>
   <title>{data.path}.md</title>
@@ -73,7 +80,7 @@
 <CreateDialog bind:this={create} />
 <FileDialog bind:this={files} bind:documents bind:titles />
 
-<footer>
+<footer class:keyboardOpen>
   <nav>
     <button on:click={() => create.toggle()} title="New file CTRL+SHIFT+N">
       <Icon icon="mdi:plus" />
@@ -105,7 +112,11 @@
   }
 
   footer {
-    top: calc(100dvh - 130px);
+    bottom: 20px;
+
+    &.keyboardOpen {
+      display: none;
+    }
   }
 
   nav button {
