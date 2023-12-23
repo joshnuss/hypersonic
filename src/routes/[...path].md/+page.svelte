@@ -113,13 +113,17 @@
     color: var(--gray-4);
     border-radius: 50%;
     display: flex;
-    width: 30px;
+    width: 50px;
     aspect-ratio: 1 / 1;
     align-items: center;
+    justify-content: center;
     transition: 0.2s all var(--ease-3);
+    backdrop-filter: blur(1px);
 
     &:hover {
-      scale: 1.1;
+      scale: 1.05;
+      color: var(--gray-1);
+      box-shadow: var(--shadow-3);
       background: var(--indigo-4);
     }
   }
@@ -138,10 +142,10 @@
   }
 
   button.search, button.mode {
-    width: 35px;
+    width: 55px;
   }
 
   nav button :global(svg) {
-    width: 35px;
+    width: 80%;
   }
 </style>
