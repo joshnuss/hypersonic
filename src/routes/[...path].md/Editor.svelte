@@ -126,10 +126,10 @@
 
       editor.addAction({
         // An unique identifier of the contributed action.
-        id: 'toggle-markdown-preview',
+        id: 'toggle-read-write',
 
         // A label of the action that will be presented to the user.
-        label: 'Toggle Markdown Preview',
+        label: 'Toggle Read/Write Mode',
 
         // An optional array of keybindings for the action.
         keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
