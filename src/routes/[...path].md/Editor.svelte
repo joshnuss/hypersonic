@@ -96,7 +96,10 @@
 
       provider.awareness.on('update', (e) => console.log(e))
 
-      if (editor) console.log('editor was already loaded')
+      if (editor) {
+        console.log('editor was already loaded')
+        editor.dispose()
+      }
 
       editor = monaco.editor.create(element, {
         value: '', // MonacoBinding overwrites this value with the content of type

@@ -1,5 +1,4 @@
 <script>
-  import RadialMenu from '$lib/components/RadialMenu.svelte'
   import Icon from '@iconify/svelte'
   import { persisted } from 'svelte-persisted-store'
   import Editor from './Editor.svelte'
@@ -15,7 +14,6 @@
   let files
   let documents
   let titles
-  let menu
 
   const mode = persisted('mode', 'write')
   const vim = persisted('vim', false)
@@ -31,6 +29,22 @@
 <svelte:head>
   <title>{data.path}.md</title>
 </svelte:head>
+
+<header>
+  <nav>
+    <button class="mode" on:click={toggleMode} title={$mode == 'write' ? 'Preview' : 'Edit'}>
+      {#if $mode == 'write'}
+        <Icon icon="mdi:file-eye" />
+      {:else}
+        <Icon icon="mdi:file-edit" />
+      {/if}
+    </button>
+
+    <button on:click={() => preferences.toggle()} title="Preferences">
+      <Icon icon="mdi:settings" />
+    </button>
+  </nav>
+</header>
 
 {#key data.path}
   <Editor
@@ -60,71 +74,63 @@
 <FileDialog bind:this={files} bind:documents bind:titles />
 
 <footer>
-  <RadialMenu bind:this={menu} count="4">
-    <button
-      style:--index="0"
-      on:click={() => {
-        menu.collapse()
-        toggleMode()
-      }}
-      title={$mode == 'write' ? 'Preview' : 'Edit'}
-    >
-      {#if $mode == 'write'}
-        <Icon icon="mdi:file-eye" />
-      {:else}
-        <Icon icon="mdi:file-edit" />
-      {/if}
-    </button>
-
-    <button
-      style:--index="1"
-      on:click={() => {
-        menu.collapse()
-        files.toggle()
-      }}
-      title="Search"
-    >
-      <Icon icon="mdi:search" />
-    </button>
-
-    <button
-      style:--index="2"
-      on:click={() => {
-        menu.collapse()
-        create.toggle()
-      }}
-      title="New file"
-    >
+  <nav>
+    <button on:click={() => create.toggle()} title="New file CTRL+SHIFT+N">
       <Icon icon="mdi:plus" />
     </button>
 
-    <button
-      style:--index="3"
-      on:click={() => {
-        menu.collapse()
-        preferences.toggle()
-      }}
-      title="Preferences"
-    >
-      <Icon icon="mdi:settings" />
+    <button class="search" on:click={() => files.toggle()} title="Search CTRL+K">
+      <Icon icon="mdi:search" />
     </button>
-  </RadialMenu>
+  </nav>
 </footer>
 
 <style>
-  footer {
+  footer, header {
     position: fixed;
-    bottom: 4vh;
-    right: calc(50% - 50px);
-    width: 100px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    padding: var(--size-4);
-    gap: 0;
+    right: 20px;
+    z-index: var(--layer-2);
   }
 
-  footer button :global(svg) {
+  footer nav, header nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-1);
+  }
+
+  header {
+    top: 10px;
+  }
+
+  footer {
+    bottom: 20px;
+  }
+
+  nav button {
+    background: #000b;
+    color: var(--gray-4);
+    border-radius: 50%;
+    display: flex;
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+
+    &:hover {
+      background: var(--indigo-4);
+    }
+  }
+
+  button.search {
+    color: var(--indigo-4);
+  }
+
+  button.search, button.mode {
+    width: 35px;
+  }
+
+  nav button :global(svg) {
     width: 35px;
   }
 </style>
