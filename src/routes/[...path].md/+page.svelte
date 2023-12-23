@@ -27,11 +27,12 @@
   }
 
   function resize(e) {
-    keyboardOpen = Math.round(e.target.visualViewport.height) != e.target.document.documentElement.clientHeight
+    keyboardOpen =
+      Math.round(e.target.visualViewport.height) != e.target.document.documentElement.clientHeight
   }
 </script>
 
-<svelte:window on:resize={resize}/>
+<svelte:window on:resize={resize} />
 
 <svelte:head>
   <title>{data.path}.md</title>
@@ -93,13 +94,15 @@
 </footer>
 
 <style>
-  footer, header {
+  footer,
+  header {
     position: fixed;
     right: 15px;
     z-index: var(--layer-2);
   }
 
-  footer nav, header nav {
+  footer nav,
+  header nav {
     display: flex;
     flex-direction: column;
     align-items: center;
