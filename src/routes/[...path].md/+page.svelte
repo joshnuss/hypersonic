@@ -116,14 +116,25 @@
     width: 30px;
     aspect-ratio: 1 / 1;
     align-items: center;
+    transition: 0.2s all var(--ease-3);
 
     &:hover {
+      scale: 1.1;
       background: var(--indigo-4);
     }
   }
 
   button.search {
     color: var(--indigo-4);
+
+    &:hover {
+      color: var(--indigo-6);
+      background: var(--gray-2);
+    }
+  }
+
+  button.mode {
+    color: var(--gray-1);
   }
 
   button.search, button.mode {
