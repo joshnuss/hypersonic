@@ -2,12 +2,16 @@
 @import 'open-props/normalize.dark.min';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;900&family=Inter:wght@400;500;600;900&display=swap');
 
+:root {
+  --background-color: #1e1e1e;
+}
+
 body {
   height: 100%;
   min-height: 100px;
   margin: 0;
   font-family: Inter;
-  background: #1e1e1e;
+  background: var(--background-color);
 }
 
 h1,

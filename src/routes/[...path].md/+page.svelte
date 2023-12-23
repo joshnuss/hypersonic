@@ -39,16 +39,12 @@
 
 <header>
   <nav>
-    <button class="mode" on:click={toggleMode} title={$mode == 'write' ? 'Preview' : 'Edit'}>
+    <button class="mode" on:click={toggleMode} title={$mode == 'write' ? 'View' : 'Edit'}>
       {#if $mode == 'write'}
-        <Icon icon="mdi:file-eye" />
+        <Icon icon="ant-design:read-outline" />
       {:else}
-        <Icon icon="mdi:file-edit" />
+        <Icon icon="mdi:progress-pencil" />
       {/if}
-    </button>
-
-    <button on:click={() => preferences.toggle()} title="Preferences">
-      <Icon icon="mdi:settings" />
     </button>
   </nav>
 </header>
@@ -82,6 +78,10 @@
 
 <footer class:keyboardOpen>
   <nav>
+    <button on:click={() => preferences.toggle()} title="Preferences">
+      <Icon icon="mdi:settings" />
+    </button>
+
     <button on:click={() => create.toggle()} title="New file CTRL+SHIFT+N">
       <Icon icon="mdi:plus" />
     </button>
@@ -95,7 +95,7 @@
 <style>
   footer, header {
     position: fixed;
-    right: 20px;
+    right: 15px;
     z-index: var(--layer-2);
   }
 
@@ -104,15 +104,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--size-1);
   }
 
   header {
-    top: 10px;
+    top: 5px;
   }
 
   footer {
-    bottom: 20px;
+    bottom: 12px;
 
     &.keyboardOpen {
       display: none;
@@ -120,11 +119,11 @@
   }
 
   nav button {
-    background: #000b;
-    color: var(--gray-4);
+    background: var(--background-color);
+    color: var(--gray-5);
     border-radius: 50%;
     display: flex;
-    width: 50px;
+    width: 40px;
     aspect-ratio: 1 / 1;
     align-items: center;
     justify-content: center;
@@ -132,10 +131,9 @@
     backdrop-filter: blur(1px);
 
     &:hover {
-      scale: 1.05;
-      color: var(--gray-1);
+      scale: 1.1;
+      color: var(--indigo-3);
       box-shadow: var(--shadow-3);
-      background: var(--indigo-4);
     }
   }
 
@@ -144,19 +142,10 @@
 
     &:hover {
       color: var(--indigo-6);
-      background: var(--gray-2);
     }
   }
 
-  button.mode {
-    color: var(--gray-1);
-  }
-
-  button.search, button.mode {
-    width: 55px;
-  }
-
   nav button :global(svg) {
-    width: 80%;
+    width: 100%;
   }
 </style>
