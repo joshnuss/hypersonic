@@ -18,7 +18,7 @@
     "@liveblocks/yjs": "^1.9.0",
     "@prisma/client": "^5.7.1",
     "@sveltejs/adapter-auto": "^3.0.0",
-    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/kit": "^1.30.3",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.28.0",
