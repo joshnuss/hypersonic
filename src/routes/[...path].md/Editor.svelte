@@ -122,85 +122,8 @@
       const extension = new MonacoMarkdownExtension()
       extension.activate(editor)
 
+      addActions()
       updateVim()
-
-      editor.addAction({
-        // An unique identifier of the contributed action.
-        id: 'toggle-read-write',
-
-        // A label of the action that will be presented to the user.
-        label: 'Toggle Read/Write Mode',
-
-        // An optional array of keybindings for the action.
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
-
-        contextMenuGroupId: 'navigation',
-        contextMenuOrder: 1.5,
-
-        // Method that will be executed when the action is triggered.
-        // @param editor The editor instance is passed in as a convenience
-        run: () => {
-          toggleMode()
-        }
-      })
-
-      editor.addAction({
-        // An unique identifier of the contributed action.
-        id: 'toggle-vim',
-
-        // A label of the action that will be presented to the user.
-        label: 'Toggle Vim',
-
-        // An optional array of keybindings for the action.
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyV],
-
-        contextMenuGroupId: 'navigation',
-        contextMenuOrder: 1.5,
-
-        // Method that will be executed when the action is triggered.
-        // @param editor The editor instance is passed in as a convenience
-        run: () => toggleVim()
-      })
-
-      editor.addAction({
-        // An unique identifier of the contributed action.
-        id: 'open-command-palette',
-
-        // A label of the action that will be presented to the user.
-        label: 'Open command palette',
-
-        // An optional array of keybindings for the action.
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK],
-
-        contextMenuGroupId: 'navigation',
-        contextMenuOrder: 1.5,
-
-        // Method that will be executed when the action is triggered.
-        // @param editor The editor instance is passed in as a convenience
-        run: () => {
-          dispatch('find')
-        }
-      })
-
-      editor.addAction({
-        // An unique identifier of the contributed action.
-        id: 'new-file',
-
-        // A label of the action that will be presented to the user.
-        label: 'New file',
-
-        // An optional array of keybindings for the action.
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN],
-
-        contextMenuGroupId: 'navigation',
-        contextMenuOrder: 1.5,
-
-        // Method that will be executed when the action is triggered.
-        // @param editor The editor instance is passed in as a convenience
-        run: () => {
-          dispatch('create')
-        }
-      })
 
       // Attach Yjs to Monaco editor
       binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
@@ -216,7 +139,45 @@
     }
   })
 
-  $: focus($mode)
+  $: editor && focus($mode)
+
+  function addActions() {
+    editor.addAction({
+      id: 'toggle-read-write',
+      label: 'Toggle Read/Write Mode',
+      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
+      contextMenuGroupId: 'navigation',
+      contextMenuOrder: 1.5,
+      run: () => toggleMode()
+    })
+
+    editor.addAction({
+      id: 'toggle-vim',
+      label: 'Toggle Vim',
+      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyV],
+      contextMenuGroupId: 'navigation',
+      contextMenuOrder: 1.5,
+      run: () => toggleVim()
+    })
+
+    editor.addAction({
+      id: 'open-command-palette',
+      label: 'Open command palette',
+      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK],
+      contextMenuGroupId: 'navigation',
+      contextMenuOrder: 1.5,
+      run: () => dispatch('find')
+    })
+
+    editor.addAction({
+      id: 'new-file',
+      label: 'New file',
+      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN],
+      contextMenuGroupId: 'navigation',
+      contextMenuOrder: 1.5,
+      run: () => dispatch('create')
+    })
+  }
 
   async function focus() {
     await tick()
