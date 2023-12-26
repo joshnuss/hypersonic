@@ -194,9 +194,10 @@
 
   function updateVim() {
     if ($vim) {
-      vimMode = initVimMode(editor)
+      if (!vimMode) vimMode = initVimMode(editor)
     } else {
       vimMode?.dispose()
+      vimMode = null
     }
   }
 
