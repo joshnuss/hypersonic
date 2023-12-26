@@ -94,13 +94,6 @@
           $mode = 'write'
         }
 
-        yText = yDoc.getText('markdown')
-        yTitle = yDoc.getText('title')
-
-        yText.observe((e) => {
-          markdown = e.target.toString()
-        })
-
         provider.awareness.on('update', (e) => console.log('awareness:update', e))
 
         resolve(yDoc)
@@ -109,7 +102,14 @@
   }
 
   onMount(async () => {
-    await loadDocument()
+    const yDoc = await loadDocument()
+
+    yTitle = yDoc.getText('title')
+    yText = yDoc.getText('markdown')
+
+    yText.observe((e) => {
+      markdown = e.target.toString()
+    })
 
     if (editor) {
       console.log('editor was already loaded')
