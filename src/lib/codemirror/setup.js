@@ -47,7 +47,7 @@ import {lintKeymap} from "@codemirror/lint"
 /// as desired.
 export const setup = (() => [
   //lineNumbers(),
-  //highlightActiveLineGutter(),
+  highlightActiveLineGutter(),
   highlightSpecialChars(),
   history(),
   //foldGutter(),
