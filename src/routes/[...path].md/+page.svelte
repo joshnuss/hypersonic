@@ -1,6 +1,6 @@
 <script>
+  import { mode, vim, fontSize, wordWrap, lineNumbers, lastPage} from '$lib/settings'
   import Icon from '@iconify/svelte'
-  import { persisted } from 'svelte-persisted-store'
   import Editor from './Editor.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
@@ -16,12 +16,6 @@
   let documents
   let titles
   let keyboardOpen = false
-
-  const mode = persisted('mode', 'write')
-  const vim = persisted('vim', false)
-  const fontSize = persisted('fontSize', 20)
-  const wordWrap = persisted('wordWrap', 'on')
-  const lineNumbers = persisted('lineNumbers', 'off')
 
   function toggleMode() {
     $mode = $mode == 'write' ? 'read' : 'write'
