@@ -25,7 +25,7 @@
   }
 </script>
 
-<div {id} bind:this={dialog} popover>
+<div {id} bind:this={dialog} popover on:keydown>
   {#if title}
     <h2>{title}</h2>
   {/if}
