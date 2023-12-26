@@ -11,6 +11,7 @@
 
   $: ({ session: { user }, path } = data)
 
+  let title
   let preferences
   let create
   let files
@@ -32,7 +33,7 @@
 <svelte:window on:resize={resize} />
 
 <svelte:head>
-  <title>{path}.md</title>
+  <title>{title ? title : `${path}.md`}</title>
 </svelte:head>
 
 <header>
@@ -51,6 +52,7 @@
   <Editor
     roomName="user:{user.id}"
     {path}
+    bind:title
     bind:documents
     bind:titles
     bind:markdown

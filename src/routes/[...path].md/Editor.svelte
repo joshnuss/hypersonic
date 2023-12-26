@@ -15,6 +15,7 @@
   export let roomName
   export let documents
   export let titles
+  export let title
   export let path
   export let markdown = ''
 
@@ -31,17 +32,17 @@
   let vimMode
 
   $: html = marked(markdown)
-  $: {
+  $: saveTitle(html)
+
+  function saveTitle(html) {
     const match = html.match(/<h1>([^<]+)<\/h1>/)
 
-    if (match) {
-      const title = match[1]
+    title = match ? match[1] : 'Untitled'
 
-      if (yTitle && yTitle.toString() !== title) {
-        yTitle.delete(0, yTitle.toString().length)
-        yTitle.insert(0, title)
-        titles.set(`${path}.md`, title)
-      }
+    if (yTitle && yTitle.toString() !== title) {
+      yTitle.delete(0, yTitle.toString().length)
+      yTitle.insert(0, title)
+      titles.set(`${path}.md`, title)
     }
   }
 
