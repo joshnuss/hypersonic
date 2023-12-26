@@ -118,8 +118,6 @@
     <Editor
       {doc}
       provider={workspace.provider}
-      on:find={() => dialogs.files.toggle()}
-      on:create={() => dialogs.create.toggle()}
     />
 
     <Preview {markdown}/>
@@ -162,6 +160,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5px;
   }
 
   header {

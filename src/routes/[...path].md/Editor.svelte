@@ -1,11 +1,12 @@
 <script>
-  import { onMount  } from 'svelte'
+  import { onMount, tick } from 'svelte'
+  import { mode } from '$lib/settings'
   import { keymap } from '@codemirror/view'
   import { markdown } from "@codemirror/lang-markdown"
-  import { basicDarkTheme } from 'cm6-theme-basic-dark'
   import { lineNumbers as lineNumbersExtension } from "@codemirror/view"
   import { vim as vimExtension } from '@replit/codemirror-vim'
-  import { setup } from '$lib/codemirror'
+  import { setup } from '$lib/codemirror/setup'
+  import { theme } from '$lib/codemirror/theme'
   import { yCollab, yUndoManagerKeymap } from 'y-codemirror.next'
   import { vim, fontSize, wordWrap, lineNumbers } from '$lib/settings'
   import { EditorView } from 'codemirror'
@@ -14,8 +15,6 @@
   export let provider
   export let doc
 
-  let loaded = false
-  let value = ''
   let element
   let view
 
@@ -29,7 +28,7 @@
     ...($vim ? [vimExtension()] : []),
     ...($lineNumbers ? [lineNumbersExtension()] : []),
     yCollab(doc.text, provider.awareness),
-    basicDarkTheme
+    theme
   ]
 
   onMount(async () => {
@@ -40,9 +39,15 @@
 
     element = document.querySelector('#editor')
     view = new EditorView({ state, parent: element })
+
   })
 
-  $: element && element.focus()
+  $: if (element) {
+    tick().then(() => {
+      element.focus()
+    })
+  }
+
   $: view && update(extensions)
 
   function update() {
@@ -55,7 +60,10 @@
   }
 </script>
 
-<div id="editor" style:--editor-font-size='{$fontSize}px'/>
+<div id="editor"
+     class:hidden={$mode !== 'write'}
+     style:--editor-font-size='{$fontSize}px'
+     />
 
 <style>
   #editor {

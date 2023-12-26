@@ -21,6 +21,7 @@
     "@codemirror/state": "^6.3.3",
     "@codemirror/view": "^6.22.3",
     "@iconify/svelte": "^3.1.6",
+    "@lezer/highlight": "^1.2.0",
     "@liveblocks/client": "^1.9.0",
     "@liveblocks/node": "^1.9.0",
     "@liveblocks/yjs": "^1.9.0",

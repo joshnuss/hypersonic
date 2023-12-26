@@ -43,6 +43,9 @@ devDependencies:
   '@iconify/svelte':
     specifier: ^3.1.6
     version: 3.1.6(svelte@4.2.7)
+  '@lezer/highlight':
+    specifier: ^1.2.0
+    version: 1.2.0
   '@liveblocks/client':
     specifier: ^1.9.0
     version: 1.9.0
