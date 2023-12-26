@@ -38,6 +38,8 @@
 </div>
 
 <style>
+  @import "open-props/media.min";
+
   ::backdrop {
     background: #0004;
     backdrop-filter: blur(2px);
@@ -46,10 +48,11 @@
   }
 
   [popover] {
-    --width: 400px;
+    --width: 100%;
     width: var(--width);
     position: fixed;
-    top: 20%;
+    bottom: 0px;
+    top: auto;
     left: calc(50vw - calc(var(--width) / 2));
   }
 
@@ -96,6 +99,18 @@
     background: white;
     color: #222;
     align-self: flex-end;
-    min-width: 40%;
+    width: 100%;
+  }
+
+  @media (--sm-n-above) {
+    [popover] {
+      --width: 400px;
+      bottom: auto;
+      top: 20%;
+    }
+
+    [popover] :global(button) {
+      width: 40%;
+    }
   }
 </style>
