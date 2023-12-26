@@ -100,6 +100,8 @@
       placeholder="search"
       bind:this={input}
       on:keydown={keydown}
+      autocorrect="off"
+      autocapitalize="none"
     />
 
     <div class="results">
