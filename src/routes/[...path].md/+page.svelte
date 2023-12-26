@@ -1,22 +1,14 @@
 <script>
   import { onMount } from 'svelte'
-  import { createClient } from '@liveblocks/client'
   import { mode, lastPage, toggleMode} from '$lib/settings'
+  import { getWorkspace } from '$lib/workspace'
   import Icon from '@iconify/svelte'
   import Editor from './Editor.svelte'
   import Preview from './Preview.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
-  import LiveblocksProvider from '@liveblocks/yjs'
-  import * as Y from 'yjs'
-  import { IndexeddbPersistence } from 'y-indexeddb'
   import { marked } from 'marked'
-  import { titlelize } from '$lib/strings'
-
-  const client = createClient({
-    authEndpoint: '/api/liveblocks-auth'
-  })
 
   export let data
 
@@ -26,14 +18,10 @@
   let preferences
   let create
   let files
-  let documents
-  let titles
   let keyboardOpen = false
   let markdown = ''
-  let room
-  let yTitle
-  let yText
-  let provider
+  let doc
+  let workspace
 
   $: if (user && path) {
     $lastPage[user.id] = `/${path}.md`
@@ -44,28 +32,33 @@
   $: saveTitle(html)
 
   onMount(async () => {
-    const roomName = `user:${user.id}`
-    const result = client.enterRoom(roomName, {
-      initialPresence: {}
-    })
+    workspace = await getWorkspace(user)
 
-    room = result.room
-
-    return () => result.leave()
+    return () => {
+      workspace.leave()
+      doc.text.unobserve(updateMarkdown)
+    }
   })
 
-  $: if (room) load(path)
+  async function loadPath(path) {
+    const result = await workspace.loadDocument(path)
 
-  async function load(path) {
-    const yDoc = await loadDocument(path)
+    if (!result.existing) $mode = 'write'
 
-    yTitle = yDoc.getText('title')
-    yText = yDoc.getText('markdown')
+    if (doc) {
+      doc.text.unobserve(updateMarkdown)
+    }
 
-    yText.observe((e) => {
-      markdown = e.target.toString()
-    })
+    doc = result.doc
+
+    doc.text.observe(updateMarkdown)
   }
+
+  function updateMarkdown(e) {
+    markdown = e.target.toString()
+  }
+
+  $: if(workspace) loadPath(fullPath)
 
   function resize(e) {
     keyboardOpen =
@@ -91,67 +84,14 @@
 
   function saveTitle(html) {
     const match = html.match(/<h1>([^<]+)<\/h1>/)
-
     title = match ? match[1] : 'Untitled'
 
-    if (yTitle && yTitle.toString() !== title) {
-      yTitle.delete(0, yTitle.toString().length)
-      yTitle.insert(0, title)
-      titles.set(`${path}.md`, title)
-    }
-  }
-
-  async function loadExisting(path) {
-    const doc = documents.get(path)
-    doc.load()
-
-    return doc
-  }
-
-  async function createDocument(path) {
-    const doc = new Y.Doc()
-    documents.set(path, doc)
-
-    const withoutExtension = path.replace(/.md$/, '')
-    const title = titlelize(withoutExtension)
-
-    doc.getText('title').insert(0, title)
-    doc.getText('markdown').insert(0, `# ${title}`)
-
-    titles.set(path, title)
-
-    return doc
-  }
-
-  async function loadDocument() {
-    const rootDoc = new Y.Doc()
-    provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
-    const persistence = new IndexeddbPersistence(room, rootDoc)
-
-    return new Promise((resolve) => {
-      provider.on('synced', async () => {
-        documents = rootDoc.getMap('documents')
-        titles = rootDoc.getMap('titles')
-
-        let yDoc
-
-        if (documents.has(fullPath)) {
-          yDoc = await loadExisting(fullPath)
-        } else {
-          yDoc = await createDocument(fullPath)
-          $mode = 'write'
-        }
-
-        provider.awareness.on('update', (e) => console.log('awareness:update', e))
-
-        resolve(yDoc)
-      })
-    })
+    doc?.updateTitle(title)
   }
 </script>
 
 <svelte:head>
-  <title>{title ? title : `${path}.md`}</title>
+  <title>{title ? title : fullPath}</title>
 </svelte:head>
 
 <svelte:window on:resize={resize} on:keydown={keydown}/>
@@ -168,11 +108,11 @@
   </nav>
 </header>
 
-{#key [path, yText]}
-  {#if yText}
+{#key [path, doc?.text]}
+  {#if doc?.text}
     <Editor
-      {yText}
-      {provider}
+      yText={doc.text}
+      provider={workspace.provider}
       on:find={() => files.toggle()}
       on:create={() => create.toggle()}
     />
@@ -185,7 +125,7 @@
 
 <PreferencesDialog bind:this={preferences}/>
 <CreateDialog bind:this={create} />
-<FileDialog bind:this={files} bind:documents bind:titles />
+<FileDialog bind:this={files} bind:workspace />
 
 <footer class:keyboardOpen>
   <nav>

@@ -2,8 +2,7 @@
   import { createSearch } from '$lib/search'
   import { open } from '$lib/navigation'
 
-  export let documents
-  export let titles
+  export let workspace
 
   let dialog
   let pattern
@@ -25,10 +24,10 @@
   }
 
   export function toggle() {
-    const paths = [...(documents?.keys() || [])]
+    const paths = [...(workspace.documents.keys())]
 
     items = paths.map((path) => {
-      const title = titles?.get(path) || ''
+      const title = workspace.titles.get(path) || ''
 
       return {
         path,
