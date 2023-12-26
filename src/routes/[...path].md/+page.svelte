@@ -14,14 +14,13 @@
 
   $: ({ session: { user }, path } = data)
 
-  let title
-  let preferences
-  let create
-  let files
-  let keyboardOpen = false
-  let markdown = ''
-  let doc
   let workspace
+  let doc
+  let title
+  let markdown = ''
+
+  let dialogs = {}
+  let keyboardOpen = false
 
   $: if (user && path) {
     $lastPage[user.id] = `/${path}.md`
@@ -73,12 +72,12 @@
 
     if (e.ctrlKey && e.code == 'KeyK') {
       e.preventDefault()
-      files.toggle()
+      dialogs.files.toggle()
     }
 
     if (e.ctrlKey && e.altKey && e.code == 'KeyN') {
       e.preventDefault()
-      create.toggle()
+      dialogs.create.toggle()
     }
   }
 
@@ -113,8 +112,8 @@
     <Editor
       yText={doc.text}
       provider={workspace.provider}
-      on:find={() => files.toggle()}
-      on:create={() => create.toggle()}
+      on:find={() => dialogs.files.toggle()}
+      on:create={() => dialogs.create.toggle()}
     />
 
     <Preview {markdown}/>
@@ -123,21 +122,21 @@
   {/if}
 {/key}
 
-<PreferencesDialog bind:this={preferences}/>
-<CreateDialog bind:this={create} />
-<FileDialog bind:this={files} bind:workspace />
+<PreferencesDialog bind:this={dialogs.preferences}/>
+<CreateDialog bind:this={dialogs.create} />
+<FileDialog bind:this={dialogs.files} bind:workspace />
 
 <footer class:keyboardOpen>
   <nav>
-    <button on:click={() => preferences.toggle()} title="Preferences">
+    <button on:click={() => dialogs.preferences.toggle()} title="Preferences">
       <Icon icon="mdi:settings" />
     </button>
 
-    <button on:click={() => create.toggle()} title="New file CTRL+ALT+N">
+    <button on:click={() => dialogs.create.toggle()} title="New file CTRL+ALT+N">
       <Icon icon="mdi:plus" />
     </button>
 
-    <button class="search" on:click={() => files.toggle()} title="Search CTRL+K">
+    <button class="search" on:click={() => dialogs.files.toggle()} title="Search CTRL+K">
       <Icon icon="mdi:search" />
     </button>
   </nav>
