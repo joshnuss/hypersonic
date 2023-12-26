@@ -8,7 +8,7 @@
 
   export let data
 
-  $: ({ user } = data.session)
+  $: ({ session: { user }, path } = data)
 
   let preferences
   let create
@@ -30,7 +30,7 @@
 <svelte:window on:resize={resize} />
 
 <svelte:head>
-  <title>{data.path}.md</title>
+  <title>{path}.md</title>
 </svelte:head>
 
 <header>
@@ -45,7 +45,7 @@
   </nav>
 </header>
 
-{#key data.path}
+{#key path}
   <Editor
     bind:mode={$mode}
     bind:vim={$vim}
@@ -53,7 +53,7 @@
     bind:wordWrap={$wordWrap}
     bind:lineNumbers={$lineNumbers}
     roomName="user:{user.id}"
-    path={data.path}
+    {path}
     bind:documents
     bind:titles
     on:find={() => files.toggle()}
