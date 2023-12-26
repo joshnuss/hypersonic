@@ -55,16 +55,12 @@
     animation: 0.3s fade-in forwards;
   }
 
-
   [popover] {
     z-index: var(--layer-4);
     background: var(--background-color);
-    --width: 100%;
+
+    --width: 400px;
     width: var(--width);
-    position: fixed;
-    bottom: 0px;
-    top: auto;
-    left: calc(50vw - calc(var(--width) / 2));
     padding: var(--size-7);
     color: var(--gray-2);
     border: solid 1px var(--gray-7);
@@ -72,6 +68,11 @@
   }
 
   [popover]:popover-open {
+    --width: 100%;
+    position: fixed;
+    bottom: 0px;
+    top: auto;
+    left: calc(50vw - calc(var(--width) / 2));
     animation: var(--animation-slide-in-up) forwards;
   }
 
@@ -87,7 +88,7 @@
   }
 
   h2 {
-    margin: 0 0 1rem 0;
+    margin: 0 0 1.5rem 0;
     font-size: 1.2rem;
     color: var(--gray-2);
     font-weight: normal;
@@ -118,7 +119,7 @@
   }
 
   @media (--sm-n-above) {
-    [popover] {
+    [popover]:popover-open {
       --width: 400px;
       bottom: auto;
       top: 20%;
