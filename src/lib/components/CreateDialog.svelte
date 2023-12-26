@@ -12,6 +12,8 @@
   }
 
   function submit(e, newTab = false) {
+    path = path.trim()
+
     if (!path) return
 
     if (!path.endsWith('.md')) {
