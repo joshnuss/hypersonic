@@ -1,5 +1,5 @@
 export function titlelize(path) {
-  const [first, ...rest] = path.replace(/[-_\/\\]/, ' ')
+  const [first, ...rest] = path.replace(/[-_\/\\]/g, ' ')
 
   return first.toUpperCase() + rest.join('')
 }
