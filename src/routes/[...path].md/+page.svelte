@@ -12,6 +12,7 @@
   import * as Y from 'yjs'
   import { IndexeddbPersistence } from 'y-indexeddb'
   import { marked } from 'marked'
+  import { titlelize } from '$lib/strings'
 
   const client = createClient({
     authEndpoint: '/api/liveblocks-auth'
@@ -146,12 +147,6 @@
         resolve(yDoc)
       })
     })
-  }
-
-  function titlelize(path) {
-    const [first, ...rest] = path.replace(/[-_\/\\]/, ' ')
-
-    return first.toUpperCase() + rest.join('')
   }
 </script>
 
