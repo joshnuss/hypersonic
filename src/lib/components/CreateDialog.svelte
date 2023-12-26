@@ -1,6 +1,6 @@
 <script>
   import Dialog from './Dialog.svelte'
-  import { goto } from '$app/navigation'
+  import { open } from '$lib/navigation'
 
   let dialog
   let path
@@ -11,19 +11,28 @@
     input.focus()
   }
 
-  function submit() {
+  function submit(e, newTab = false) {
     if (!path) return
 
     if (!path.endsWith('.md')) {
       path += '.md'
     }
 
-    goto('/' + path)
+    open(`/${path}`, newTab)
 
+    dialog.close()
     path = ''
+  }
+
+  function keydown(e) {
+    if (e.altKey && e.code == 'Enter') {
+      e.preventDefault()
+
+      submit(null, true)
+    }
   }
 </script>
 
-<Dialog id="create-dialog" bind:this={dialog} title="Create" on:submit={submit}>
+<Dialog id="create-dialog" bind:this={dialog} title="New file" on:submit={submit} on:keydown={keydown}>
   <input bind:value={path} bind:this={input} type="string" placeholder="some/path/file.md" />
 </Dialog>

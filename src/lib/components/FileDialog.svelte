@@ -1,6 +1,6 @@
 <script>
   import { createSearch } from '$lib/search'
-  import { goto } from '$app/navigation'
+  import { open } from '$lib/navigation'
 
   export let documents
   export let titles
@@ -53,7 +53,13 @@
       return
     }
 
-    if (e.key !== 'Enter' && e.target == input) {
+    if (e.key == 'Enter' && e.altKey) {
+      e.preventDefault()
+      submit(null, true)
+      return
+    }
+
+    if (!['Enter', 'Alt'].includes(e.key) && e.target == input) {
       focusedIndex = 0
     }
   }
@@ -72,11 +78,11 @@
     focusedIndex = index
   }
 
-  function submit() {
+  function submit(e, newTab = false) {
     if (results.length) {
       const { path } = results[focusedIndex]
 
-      goto('/' + path)
+      open(`/${path}`, newTab)
     }
 
     dialog.hidePopover()
