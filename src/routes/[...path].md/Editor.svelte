@@ -49,7 +49,7 @@
     wordWrap: $wordWrap ? 'on' :'off'
   })
 
-  $: editor && updateVim($vim)
+  $: if ($vim && editor) { updateVim(editor) }
 
   async function loadDocument() {
     const rootDoc = new Y.Doc()
@@ -84,7 +84,7 @@
           markdown = e.target.toString()
         })
 
-        provider.awareness.on('update', (e) => console.log(e))
+        provider.awareness.on('update', (e) => console.log('awareness:update', e))
 
         resolve()
       })
@@ -99,7 +99,19 @@
       editor.dispose()
     }
 
-    editor = monaco.editor.create(element, {
+    editor = createEditor()
+    editor.focus()
+
+    return () => {
+      binding?.destroy()
+      editor?.dispose()
+    }
+  })
+
+  $: editor && focus($mode)
+
+  function createEditor() {
+    const editor = monaco.editor.create(element, {
       value: '', // MonacoBinding overwrites this value with the content of type
       theme: 'vs-dark',
       language: 'markdown',
@@ -117,33 +129,21 @@
       }
     })
 
-    // for debugging
-    window.editor = editor
+    addExtensions(editor)
+    addActions(editor)
+    updateVim(editor)
 
-    addExtensions()
-    addActions()
-    updateVim()
-
-    // Attach Yjs to Monaco editor
     binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
 
-    editor.focus()
+    return editor
+  }
 
-    return () => {
-      console.log('disposing')
-      editor.dispose()
-      binding?.destroy()
-    }
-  })
-
-  $: editor && focus($mode)
-
-  function addExtensions() {
+  function addExtensions(editor) {
     const extension = new MonacoMarkdownExtension()
     extension.activate(editor)
   }
 
-  function addActions() {
+  function addActions(editor) {
     editor.addAction({
       id: 'toggle-read-write',
       label: 'Toggle Read/Write Mode',
@@ -188,10 +188,10 @@
 
   function toggleVim() {
     $vim = !$vim
-    updateVim()
+    updateVim(editor)
   }
 
-  function updateVim() {
+  function updateVim(editor) {
     if ($vim) {
       if (!vimMode) vimMode = initVimMode(editor)
     } else {
