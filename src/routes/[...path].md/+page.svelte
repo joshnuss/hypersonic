@@ -17,6 +17,10 @@
   let titles
   let keyboardOpen = false
 
+  $: if (user && path) {
+    $lastPage[user.id] = `/${path}.md`
+  }
+
   function toggleMode() {
     $mode = $mode == 'write' ? 'read' : 'write'
   }
