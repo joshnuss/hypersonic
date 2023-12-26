@@ -1,6 +1,5 @@
 <script>
   import { onMount, tick, createEventDispatcher } from 'svelte'
-  import { createClient } from '@liveblocks/client'
   import LiveblocksProvider from '@liveblocks/yjs'
   import * as Y from 'yjs'
   import { IndexeddbPersistence } from 'y-indexeddb'
@@ -12,7 +11,7 @@
 
   import { mode, vim, fontSize, wordWrap, lineNumbers, toggleMode } from '$lib/settings'
 
-  export let roomName
+  export let room
   export let documents
   export let titles
   export let title
@@ -21,14 +20,12 @@
 
   const dispatch = createEventDispatcher()
 
-  const client = createClient({
-    authEndpoint: '/api/liveblocks-auth'
-  })
-
   let element
   let editor
   let binding
+  let provider
   let yTitle
+  let yText
   let vimMode
 
   $: html = marked(markdown)
@@ -54,86 +51,88 @@
 
   $: editor && updateVim($vim)
 
-  onMount(() => {
-    // Enter a multiplayer room
-    const { room, leave } = client.enterRoom(roomName, {
-      initialPresence: {}
-    })
-
+  async function loadDocument() {
     const rootDoc = new Y.Doc()
-    const provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
+    provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
     const persistence = new IndexeddbPersistence(room, rootDoc)
 
-    provider.on('synced', () => {
-      documents = rootDoc.getMap('documents')
-      titles = rootDoc.getMap('titles')
+    return new Promise((resolve) => {
+      provider.on('synced', () => {
+        documents = rootDoc.getMap('documents')
+        titles = rootDoc.getMap('titles')
 
-      // Set up Yjs document, shared text, and Liveblocks Yjs provider
-      let yDoc
+        // Set up Yjs document, shared text, and Liveblocks Yjs provider
+        let yDoc
 
-      if (documents.has(`${path}.md`)) {
-        yDoc = documents.get(`${path}.md`)
-        yDoc.load()
-      } else {
-        yDoc = new Y.Doc()
-        documents.set(`${path}.md`, yDoc)
-        const titleized = titlelize(path)
-        yDoc.getText('title').insert(0, titleized)
-        yDoc.getText('markdown').insert(0, `# ${titleized}`)
-        titles.set(`${path}.md`, titleized)
-        $mode = 'write'
-      }
-
-      const yText = yDoc.getText('markdown')
-      yTitle = yDoc.getText('title')
-
-      yText.observe((e) => {
-        markdown = e.target.toString()
-      })
-
-      provider.awareness.on('update', (e) => console.log(e))
-
-      if (editor) {
-        console.log('editor was already loaded')
-        editor.dispose()
-      }
-
-      editor = monaco.editor.create(element, {
-        value: '', // MonacoBinding overwrites this value with the content of type
-        theme: 'vs-dark',
-        language: 'markdown',
-        minimap: { enabled: false },
-        automaticLayout: true,
-        codeLens: false,
-        fontSize: $fontSize,
-        lineNumbers: $lineNumbers ? 'on' : 'off',
-        lineNumbersMinChars: 3,
-        wordWrap: $wordWrap ? 'on' :'off',
-        quickSuggestions: {
-          strings: false,
-          comments: false,
-          other: false
+        if (documents.has(`${path}.md`)) {
+          yDoc = documents.get(`${path}.md`)
+          yDoc.load()
+        } else {
+          yDoc = new Y.Doc()
+          documents.set(`${path}.md`, yDoc)
+          const titleized = titlelize(path)
+          yDoc.getText('title').insert(0, titleized)
+          yDoc.getText('markdown').insert(0, `# ${titleized}`)
+          titles.set(`${path}.md`, titleized)
+          $mode = 'write'
         }
+
+        yText = yDoc.getText('markdown')
+        yTitle = yDoc.getText('title')
+
+        yText.observe((e) => {
+          markdown = e.target.toString()
+        })
+
+        provider.awareness.on('update', (e) => console.log(e))
+
+        resolve()
       })
-
-      // for debugging
-      window.editor = editor
-
-      addExtensions()
-      addActions()
-      updateVim()
-
-      // Attach Yjs to Monaco editor
-      binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
-
-      editor.focus()
     })
+  }
+
+  onMount(async () => {
+    await loadDocument()
+
+    if (editor) {
+      console.log('editor was already loaded')
+      editor.dispose()
+    }
+
+    editor = monaco.editor.create(element, {
+      value: '', // MonacoBinding overwrites this value with the content of type
+      theme: 'vs-dark',
+      language: 'markdown',
+      minimap: { enabled: false },
+      automaticLayout: true,
+      codeLens: false,
+      fontSize: $fontSize,
+      lineNumbers: $lineNumbers ? 'on' : 'off',
+      lineNumbersMinChars: 3,
+      wordWrap: $wordWrap ? 'on' :'off',
+      quickSuggestions: {
+        strings: false,
+        comments: false,
+        other: false
+      }
+    })
+
+    // for debugging
+    window.editor = editor
+
+    addExtensions()
+    addActions()
+    updateVim()
+
+    // Attach Yjs to Monaco editor
+    binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
+
+    editor.focus()
 
     return () => {
       console.log('disposing')
       editor.dispose()
       binding?.destroy()
-      leave()
     }
   })
 

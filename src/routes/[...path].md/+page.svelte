@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from 'svelte'
+  import { createClient } from '@liveblocks/client'
   import { mode, lastPage, toggleMode} from '$lib/settings'
   import Icon from '@iconify/svelte'
   import Editor from './Editor.svelte'
@@ -6,6 +8,10 @@
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
+
+  const client = createClient({
+    authEndpoint: '/api/liveblocks-auth'
+  })
 
   export let data
 
@@ -19,10 +25,22 @@
   let titles
   let keyboardOpen = false
   let markdown = ''
+  let room
 
   $: if (user && path) {
     $lastPage[user.id] = `/${path}.md`
   }
+
+  onMount(() => {
+    const roomName = `user:${user.id}`
+    const result = client.enterRoom(roomName, {
+      initialPresence: {}
+    })
+
+    room = result.room
+
+    return () => result.leave()
+  })
 
   function resize(e) {
     keyboardOpen =
@@ -45,7 +63,6 @@
       create.toggle()
     }
   }
-
 </script>
 
 <svelte:head>
@@ -67,18 +84,22 @@
 </header>
 
 {#key path}
-  <Editor
-    roomName="user:{user.id}"
-    {path}
-    bind:title
-    bind:documents
-    bind:titles
-    bind:markdown
-    on:find={() => files.toggle()}
-    on:create={() => create.toggle()}
-  />
+  {#if room}
+    <Editor
+      {room}
+      {path}
+      bind:title
+      bind:documents
+      bind:titles
+      bind:markdown
+      on:find={() => files.toggle()}
+      on:create={() => create.toggle()}
+    />
 
-  <Preview {markdown}/>
+    <Preview {markdown}/>
+  {:else}
+    <p>Loading...</p>
+  {/if}
 {/key}
 
 <PreferencesDialog bind:this={preferences}/>
