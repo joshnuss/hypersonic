@@ -78,7 +78,7 @@
       <Icon icon="mdi:settings" />
     </button>
 
-    <button on:click={() => create.toggle()} title="New file CTRL+SHIFT+N">
+    <button on:click={() => create.toggle()} title="New file CTRL+ALT+N">
       <Icon icon="mdi:plus" />
     </button>
 
