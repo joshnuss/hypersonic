@@ -56,6 +56,7 @@
   [popover]:popover-open {
     padding: var(--size-7);
     color: var(--gray-2);
+    border: solid 1px var(--gray-8);
     border-radius: var(--radius-2);
     animation: var(--animation-slide-in-up) forwards;
   }
@@ -70,7 +71,31 @@
   h2 {
     margin: 0 0 1rem 0;
     font-size: 1.2rem;
-    color: var(--gray-4);
+    color: var(--gray-2);
     font-weight: normal;
+  }
+
+  [popover] :global(dialog) {
+    border: solid 1px var(--gray-7);
+    padding: 7px;
+    background: var(--gray-1);
+    color: #222;
+    align-self: flex-end;
+    min-width: 40%;
+  }
+
+  [popover] :global(input) {
+    background: var(--gray-11);
+    padding: 8px 15px;
+    border: solid 1px var(--gray-7);
+  }
+
+  [popover] :global(button) {
+    border: solid 1px var(--gray-1);
+    padding: 7px;
+    background: white;
+    color: #222;
+    align-self: flex-end;
+    min-width: 40%;
   }
 </style>
