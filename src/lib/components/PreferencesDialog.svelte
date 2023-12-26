@@ -34,3 +34,22 @@
     <span>Vim mode</span>
   </label>
 </Dialog>
+
+<style>
+  label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  label:has(input[type="number"]) {
+    justify-content: space-between;
+    & input {
+      text-align: right;
+    }
+  }
+
+  label:has(input[type="checkbox"]) {
+    justify-content: flex-start;
+  }
+</style>
