@@ -10,15 +10,12 @@
   import { MonacoMarkdownExtension } from 'monaco-markdown'
   import { marked } from 'marked'
 
-  export let mode
+  import { mode, vim, fontSize, wordWrap, lineNumbers} from '$lib/settings'
+
   export let roomName
   export let documents
   export let titles
   export let path
-  export let vim
-  export let fontSize
-  export let wordWrap
-  export let lineNumbers
 
   const dispatch = createEventDispatcher()
 
@@ -45,12 +42,12 @@
   }
 
   $: editor?.updateOptions({
-    fontSize,
-    lineNumbers,
-    wordWrap
+    fontSize: $fontSize,
+    lineNumbers: $lineNumbers ? 'on' : 'off',
+    wordWrap: $wordWrap ? 'on' :'off'
   })
 
-  $: editor && updateVim(vim)
+  $: editor && updateVim($vim)
 
   // Set up Liveblocks client
   const client = createClient({
@@ -84,7 +81,7 @@
         yDoc.getText('title').insert(0, titleized)
         yDoc.getText('markdown').insert(0, `# ${titleized}`)
         titles.set(`${path}.md`, titleized)
-        mode = 'write'
+        $mode = 'write'
       }
 
       const yText = yDoc.getText('markdown')
@@ -108,10 +105,10 @@
         minimap: { enabled: false },
         automaticLayout: true,
         codeLens: false,
-        fontSize,
-        lineNumbers,
+        fontSize: $fontSize,
+        lineNumbers: $lineNumbers ? 'on' : 'off',
         lineNumbersMinChars: 3,
-        wordWrap,
+        wordWrap: $wordWrap ? 'on' :'off',
         quickSuggestions: {
           strings: false,
           comments: false,
@@ -220,18 +217,18 @@
   })
 
   async function toggleMode() {
-    mode = mode == 'write' ? 'read' : 'write'
+    $mode = $mode == 'write' ? 'read' : 'write'
     await tick()
     editor.focus()
   }
 
   function toggleVim() {
-    vim = !vim
+    $vim = !$vim
     updateVim()
   }
 
   function updateVim() {
-    if (vim) {
+    if ($vim) {
       vimMode = initVimMode(editor)
     } else {
       vimMode?.dispose()
@@ -264,11 +261,11 @@
 
 <svelte:window on:keydown={keydown} />
 
-<div id="preview" class:visible={mode == 'read'}>
+<div id="preview" class:visible={$mode == 'read'}>
   {@html html}
 </div>
 
-<div id="editor" class:hidden={mode == 'read'} bind:this={element}></div>
+<div id="editor" class:hidden={$mode == 'read'} bind:this={element}></div>
 
 <style>
   #editor {

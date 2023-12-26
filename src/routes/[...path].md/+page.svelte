@@ -1,5 +1,5 @@
 <script>
-  import { mode, vim, fontSize, wordWrap, lineNumbers, lastPage} from '$lib/settings'
+  import { mode, lastPage, toggleMode} from '$lib/settings'
   import Icon from '@iconify/svelte'
   import Editor from './Editor.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
@@ -19,10 +19,6 @@
 
   $: if (user && path) {
     $lastPage[user.id] = `/${path}.md`
-  }
-
-  function toggleMode() {
-    $mode = $mode == 'write' ? 'read' : 'write'
   }
 
   function resize(e) {
@@ -51,11 +47,6 @@
 
 {#key path}
   <Editor
-    bind:mode={$mode}
-    bind:vim={$vim}
-    bind:fontSize={$fontSize}
-    bind:wordWrap={$wordWrap}
-    bind:lineNumbers={$lineNumbers}
     roomName="user:{user.id}"
     {path}
     bind:documents
@@ -65,13 +56,7 @@
   />
 {/key}
 
-<PreferencesDialog
-  bind:this={preferences}
-  bind:fontSize={$fontSize}
-  bind:lineNumbers={$lineNumbers}
-  bind:wordWrap={$wordWrap}
-  bind:vimMode={$vim}
-/>
+<PreferencesDialog bind:this={preferences}/>
 
 <CreateDialog bind:this={create} />
 <FileDialog bind:this={files} bind:documents bind:titles />
