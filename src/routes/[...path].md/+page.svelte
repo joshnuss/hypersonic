@@ -33,6 +33,12 @@
   onMount(async () => {
     workspace = await getWorkspace(user)
 
+    workspace.provider.awareness.setLocalStateField('user', {
+      name: 'Anonymous ' + Math.floor(Math.random() * 100),
+      color: 'black',
+      colorLight: 'pink'
+    })
+
     return () => {
       workspace.leave()
       doc.text.unobserve(updateMarkdown)
@@ -110,7 +116,7 @@
 {#key [path, doc?.text]}
   {#if doc?.text}
     <Editor
-      yText={doc.text}
+      {doc}
       provider={workspace.provider}
       on:find={() => dialogs.files.toggle()}
       on:create={() => dialogs.create.toggle()}

@@ -18,7 +18,7 @@ export function getWorkspace(user) {
   const provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
   const persistence = new IndexeddbPersistence(room, rootDoc)
 
-  provider.awareness.on('update', (e) => console.log('awareness:update', e))
+  provider.awareness.on('change', (e) => console.log('awareness:change', e))
 
   return new Promise((resolve) => {
     provider.on('synced', async () => {

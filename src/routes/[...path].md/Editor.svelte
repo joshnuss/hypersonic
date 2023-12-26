@@ -1,139 +1,61 @@
 <script>
-  import { onMount, tick, createEventDispatcher } from 'svelte'
-  import { MonacoBinding } from 'y-monaco'
-  import * as monaco from 'monaco-editor'
-  import { initVimMode } from 'monaco-vim'
-  import { MonacoMarkdownExtension } from 'monaco-markdown'
-
-  import { mode, vim, fontSize, wordWrap, lineNumbers, toggleMode } from '$lib/settings'
+  import { onMount  } from 'svelte'
+  import { keymap } from '@codemirror/view'
+  import { markdown } from "@codemirror/lang-markdown"
+  import { basicDarkTheme } from 'cm6-theme-basic-dark'
+  import { lineNumbers as lineNumbersExtension } from "@codemirror/view"
+  import { vim as vimExtension } from '@replit/codemirror-vim'
+  import { setup } from '$lib/codemirror'
+  import { yCollab, yUndoManagerKeymap } from 'y-codemirror.next'
+  import { vim, fontSize, wordWrap, lineNumbers } from '$lib/settings'
+  import { EditorView } from 'codemirror'
+  import { EditorState } from '@codemirror/state'
 
   export let provider
-  export let yText
+  export let doc
 
-  const dispatch = createEventDispatcher()
-
+  let loaded = false
+  let value = ''
   let element
-  let editor
-  let binding
-  let vimMode
+  let view
 
-  $: editor?.updateOptions({
-    fontSize: $fontSize,
-    lineNumbers: $lineNumbers ? 'on' : 'off',
-    wordWrap: $wordWrap ? 'on' :'off'
-  })
-
-  $: if ($vim && editor) { updateVim(editor) }
+  $: extensions = [
+    keymap.of([
+      ...yUndoManagerKeymap
+    ]),
+    setup,
+    markdown(),
+    ...($wordWrap ? [EditorView.lineWrapping] : []),
+    ...($vim ? [vimExtension()] : []),
+    ...($lineNumbers ? [lineNumbersExtension()] : []),
+    yCollab(doc.text, provider.awareness),
+    basicDarkTheme
+  ]
 
   onMount(async () => {
-    if (editor) {
-      console.log('editor was already loaded')
-      editor.dispose()
-    }
+    const state = EditorState.create({
+      doc: doc.text.toString(),
+      extensions
+    })
 
-    editor = createEditor()
-    editor.focus()
-
-    return () => {
-      binding?.destroy()
-      editor.dispose()
-    }
+    element = document.querySelector('#editor')
+    view = new EditorView({ state, parent: element })
   })
 
-  $: editor && focus($mode)
+  $: element && element.focus()
+  $: view && update(extensions)
 
-  function createEditor() {
-    const editor = monaco.editor.create(element, {
-      value: '', // MonacoBinding overwrites this value with the content of type
-      theme: 'vs-dark',
-      language: 'markdown',
-      minimap: { enabled: false },
-      automaticLayout: true,
-      codeLens: false,
-      fontSize: $fontSize,
-      lineNumbers: $lineNumbers ? 'on' : 'off',
-      lineNumbersMinChars: 3,
-      wordWrap: $wordWrap ? 'on' :'off',
-      quickSuggestions: {
-        strings: false,
-        comments: false,
-        other: false
-      }
+  function update() {
+    const state = EditorState.create({
+      doc: doc.text.toString(),
+      extensions
     })
 
-    addExtensions(editor)
-    addActions(editor)
-    updateVim(editor)
-
-    binding = new MonacoBinding(yText, editor.getModel(), new Set([editor]), provider.awareness)
-
-    return editor
-  }
-
-  function addExtensions(editor) {
-    const extension = new MonacoMarkdownExtension()
-    extension.activate(editor)
-  }
-
-  function addActions(editor) {
-    editor.addAction({
-      id: 'toggle-read-write',
-      label: 'Toggle Read/Write Mode',
-      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyM],
-      contextMenuGroupId: 'navigation',
-      contextMenuOrder: 1.5,
-      run: () => toggleMode()
-    })
-
-    editor.addAction({
-      id: 'toggle-vim',
-      label: 'Toggle Vim',
-      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyV],
-      contextMenuGroupId: 'navigation',
-      contextMenuOrder: 1.5,
-      run: () => toggleVim()
-    })
-
-    editor.addAction({
-      id: 'open-command-palette',
-      label: 'Open command palette',
-      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyK],
-      contextMenuGroupId: 'navigation',
-      contextMenuOrder: 1.5,
-      run: () => dispatch('find')
-    })
-
-    editor.addAction({
-      id: 'new-file',
-      label: 'New file',
-      keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyN],
-      contextMenuGroupId: 'navigation',
-      contextMenuOrder: 1.5,
-      run: () => dispatch('create')
-    })
-  }
-
-  async function focus() {
-    await tick()
-    editor.focus()
-  }
-
-  function toggleVim() {
-    $vim = !$vim
-    updateVim(editor)
-  }
-
-  function updateVim(editor) {
-    if ($vim) {
-      if (!vimMode) vimMode = initVimMode(editor)
-    } else {
-      vimMode?.dispose()
-      vimMode = null
-    }
+    view.setState(state)
   }
 </script>
 
-<div id="editor" class:hidden={$mode == 'read'} bind:this={element}></div>
+<div id="editor" style:--editor-font-size='{$fontSize}px'/>
 
 <style>
   #editor {
@@ -145,25 +67,8 @@
     }
   }
 
-  :global(.yRemoteSelection) {
-    background-color: rgb(250, 129, 0, 0.5);
-  }
-
-  :global(.yRemoteSelectionHead) {
-    position: absolute;
-    border-left: orange solid 2px;
-    border-top: orange solid 2px;
-    border-bottom: orange solid 2px;
-    height: 100%;
-    box-sizing: border-box;
-  }
-
-  :global(.yRemoteSelectionHead::after) {
-    position: absolute;
-    content: ' ';
-    border: 3px solid orange;
-    border-radius: 4px;
-    left: -4px;
-    top: -5px;
-  }
+	:global(.cm-content), :global(.cm-gutter) {
+		font-family: 'Noto Sans Mono';
+		font-size: var(--editor-font-size);
+	}
 </style>
