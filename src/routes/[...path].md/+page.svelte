@@ -2,6 +2,7 @@
   import { mode, lastPage, toggleMode} from '$lib/settings'
   import Icon from '@iconify/svelte'
   import Editor from './Editor.svelte'
+  import Preview from './Preview.svelte'
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
@@ -16,6 +17,7 @@
   let documents
   let titles
   let keyboardOpen = false
+  let markdown = ''
 
   $: if (user && path) {
     $lastPage[user.id] = `/${path}.md`
@@ -51,9 +53,12 @@
     {path}
     bind:documents
     bind:titles
+    bind:markdown
     on:find={() => files.toggle()}
     on:create={() => create.toggle()}
   />
+
+  <Preview {markdown}/>
 {/key}
 
 <PreferencesDialog bind:this={preferences}/>

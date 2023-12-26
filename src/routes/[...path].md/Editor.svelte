@@ -16,6 +16,7 @@
   export let documents
   export let titles
   export let path
+  export let markdown = ''
 
   const dispatch = createEventDispatcher()
 
@@ -23,7 +24,6 @@
   let editor
   let binding
   let yTitle
-  let markdown = ''
   let vimMode
 
   $: html = marked(markdown)
@@ -260,10 +260,6 @@
 </script>
 
 <svelte:window on:keydown={keydown} />
-
-<div id="preview" class:visible={$mode == 'read'}>
-  {@html html}
-</div>
 
 <div id="editor" class:hidden={$mode == 'read'} bind:this={element}></div>
 
