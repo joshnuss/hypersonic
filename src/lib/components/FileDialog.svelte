@@ -110,8 +110,7 @@
           class:focus={index == focusedIndex}
           on:focus={() => focus(index)}
         >
-          <h4>{item.title}</h4>
-          <p>{item.path}</p>
+          {item.path}
         </button>
       {:else}
         <button>Nothing found</button>
@@ -168,16 +167,19 @@
 
   .results {
     display: flex;
+    gap: 0;
     flex-direction: column;
     max-height: 160px;
     overflow-y: auto;
 
     & button {
+      padding: 5px 8px;
+      margin: 5px;
       text-align: left;
-      border-radius: 0;
+      border-radius: var(--radius-2);
       border: none;
-      border-top: solid 1px var(--gray-7);
       justify-content: flex-start;
+      background: none;
       color: var(--gray-5);
       font-weight: normal;
       display: flex;
@@ -185,13 +187,17 @@
       gap: 0;
       transition: all 0.1s var(--ease-3);
 
+      &:hover {
+        background: var(--gray-7);
+      }
+
       &:focus {
         outline: none;
       }
 
       &.focus {
         outline: none;
-        background: var(--gray-7);
+        background: var(--gray-9);
       }
     }
 
