@@ -24,7 +24,7 @@ const invalid = base09,
   highlightBackground = base02 + '30',
   background = base00,
   tooltipBackground = base01,
-  selection = 'var(--indigo-8)',
+  selection = 'hsl(var(--blue-9-hsl) / 40%)',
   cursor = base01
 
 /// The editor theme styles for Basic Dark.
@@ -39,7 +39,7 @@ export const basicDarkTheme = EditorView.theme(
       caretColor: cursor
     },
 
-    '.cm-cursor, .cm-dropCursor': { borderLeftColor: cursor },
+          '.cm-cursor, .cm-dropCursor': { borderLeftColor: cursor, borderWidth: '1px' },
     '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection':
       { backgroundColor: selection },
     '.cm-fat-cursor': {
@@ -81,7 +81,8 @@ export const basicDarkTheme = EditorView.theme(
     },
 
     '.cm-activeLineGutter': {
-      backgroundColor: highlightBackground
+      backgroundColor: 'transparent',
+      color: 'var(--gray-4)'
     },
 
     '.cm-foldPlaceholder': {
