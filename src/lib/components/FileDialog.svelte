@@ -128,7 +128,7 @@
   }
 
   [popover] {
-    --width: 300px;
+    --width: 400px;
     position: fixed;
     top: 20vh;
     left: calc(50vw - calc(var(--width) / 2));
@@ -139,7 +139,7 @@
     border: solid 1px var(--gray-7);
     color: var(--gray-2);
     border-radius: var(--radius-2);
-    min-width: 300px;
+    width: var(--width);
     display: flex;
     flex-direction: column;
     gap: var(--size-4);
@@ -150,6 +150,7 @@
   }
 
   form {
+    font-size: 1.2rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -169,7 +170,7 @@
     display: flex;
     gap: 0;
     flex-direction: column;
-    max-height: 160px;
+    max-height: 240px;
     overflow-y: auto;
 
     & button {
