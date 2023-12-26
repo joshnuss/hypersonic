@@ -8,6 +8,10 @@
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
+  import LiveblocksProvider from '@liveblocks/yjs'
+  import * as Y from 'yjs'
+  import { IndexeddbPersistence } from 'y-indexeddb'
+  import { marked } from 'marked'
 
   const client = createClient({
     authEndpoint: '/api/liveblocks-auth'
@@ -26,12 +30,19 @@
   let keyboardOpen = false
   let markdown = ''
   let room
+  let yTitle
+  let yText
+  let provider
 
   $: if (user && path) {
     $lastPage[user.id] = `/${path}.md`
   }
 
-  onMount(() => {
+  $: fullPath = `${path}.md`
+  $: html = marked(markdown)
+  $: saveTitle(html)
+
+  onMount(async () => {
     const roomName = `user:${user.id}`
     const result = client.enterRoom(roomName, {
       initialPresence: {}
@@ -41,6 +52,19 @@
 
     return () => result.leave()
   })
+
+  $: if (room) load(path)
+
+  async function load(path) {
+    const yDoc = await loadDocument(path)
+
+    yTitle = yDoc.getText('title')
+    yText = yDoc.getText('markdown')
+
+    yText.observe((e) => {
+      markdown = e.target.toString()
+    })
+  }
 
   function resize(e) {
     keyboardOpen =
@@ -63,6 +87,72 @@
       create.toggle()
     }
   }
+
+  function saveTitle(html) {
+    const match = html.match(/<h1>([^<]+)<\/h1>/)
+
+    title = match ? match[1] : 'Untitled'
+
+    if (yTitle && yTitle.toString() !== title) {
+      yTitle.delete(0, yTitle.toString().length)
+      yTitle.insert(0, title)
+      titles.set(`${path}.md`, title)
+    }
+  }
+
+  async function loadExisting(path) {
+    const doc = documents.get(path)
+    doc.load()
+
+    return doc
+  }
+
+  async function createDocument(path) {
+    const doc = new Y.Doc()
+    documents.set(path, doc)
+
+    const withoutExtension = path.replace(/.md$/, '')
+    const title = titlelize(withoutExtension)
+
+    doc.getText('title').insert(0, title)
+    doc.getText('markdown').insert(0, `# ${title}`)
+
+    titles.set(path, title)
+
+    return doc
+  }
+
+  async function loadDocument() {
+    const rootDoc = new Y.Doc()
+    provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
+    const persistence = new IndexeddbPersistence(room, rootDoc)
+
+    return new Promise((resolve) => {
+      provider.on('synced', async () => {
+        documents = rootDoc.getMap('documents')
+        titles = rootDoc.getMap('titles')
+
+        let yDoc
+
+        if (documents.has(fullPath)) {
+          yDoc = await loadExisting(fullPath)
+        } else {
+          yDoc = await createDocument(fullPath)
+          $mode = 'write'
+        }
+
+        provider.awareness.on('update', (e) => console.log('awareness:update', e))
+
+        resolve(yDoc)
+      })
+    })
+  }
+
+  function titlelize(path) {
+    const [first, ...rest] = path.replace(/[-_\/\\]/, ' ')
+
+    return first.toUpperCase() + rest.join('')
+  }
 </script>
 
 <svelte:head>
@@ -83,15 +173,11 @@
   </nav>
 </header>
 
-{#key path}
-  {#if room}
+{#key [path, yText]}
+  {#if yText}
     <Editor
-      {room}
-      {path}
-      bind:title
-      bind:documents
-      bind:titles
-      bind:markdown
+      {yText}
+      {provider}
       on:find={() => files.toggle()}
       on:create={() => create.toggle()}
     />

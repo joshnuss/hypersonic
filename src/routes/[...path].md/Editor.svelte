@@ -1,49 +1,21 @@
 <script>
   import { onMount, tick, createEventDispatcher } from 'svelte'
-  import LiveblocksProvider from '@liveblocks/yjs'
-  import * as Y from 'yjs'
-  import { IndexeddbPersistence } from 'y-indexeddb'
   import { MonacoBinding } from 'y-monaco'
   import * as monaco from 'monaco-editor'
   import { initVimMode } from 'monaco-vim'
   import { MonacoMarkdownExtension } from 'monaco-markdown'
-  import { marked } from 'marked'
 
   import { mode, vim, fontSize, wordWrap, lineNumbers, toggleMode } from '$lib/settings'
 
-  export let room
-  export let documents
-  export let titles
-  export let title
-  export let path
-  export let markdown = ''
+  export let provider
+  export let yText
 
   const dispatch = createEventDispatcher()
 
   let element
   let editor
   let binding
-  let provider
-  let yTitle
-  let yText
   let vimMode
-
-  $: html = marked(markdown)
-  $: saveTitle(html)
-
-  $: fullPath = `${path}.md`
-
-  function saveTitle(html) {
-    const match = html.match(/<h1>([^<]+)<\/h1>/)
-
-    title = match ? match[1] : 'Untitled'
-
-    if (yTitle && yTitle.toString() !== title) {
-      yTitle.delete(0, yTitle.toString().length)
-      yTitle.insert(0, title)
-      titles.set(`${path}.md`, title)
-    }
-  }
 
   $: editor?.updateOptions({
     fontSize: $fontSize,
@@ -53,64 +25,7 @@
 
   $: if ($vim && editor) { updateVim(editor) }
 
-  async function loadExisting(path) {
-    const doc = documents.get(path)
-    doc.load()
-
-    return doc
-  }
-
-  async function createDocument(path) {
-    const doc = new Y.Doc()
-    documents.set(fullPath, doc)
-
-    const withoutExtension = path.replace(/.md$/, '')
-    const title = titlelize(withoutExtension)
-
-    doc.getText('title').insert(0, title)
-    doc.getText('markdown').insert(0, `# ${title}`)
-
-    titles.set(path, title)
-
-    return doc
-  }
-
-  async function loadDocument() {
-    const rootDoc = new Y.Doc()
-    provider = new LiveblocksProvider(room, rootDoc, { autoloadSubdocs: false })
-    const persistence = new IndexeddbPersistence(room, rootDoc)
-
-    return new Promise((resolve) => {
-      provider.on('synced', async () => {
-        documents = rootDoc.getMap('documents')
-        titles = rootDoc.getMap('titles')
-
-        let yDoc
-
-        if (documents.has(fullPath)) {
-          yDoc = await loadExisting(fullPath)
-        } else {
-          yDoc = await createDocument(fullPath)
-          $mode = 'write'
-        }
-
-        provider.awareness.on('update', (e) => console.log('awareness:update', e))
-
-        resolve(yDoc)
-      })
-    })
-  }
-
   onMount(async () => {
-    const yDoc = await loadDocument()
-
-    yTitle = yDoc.getText('title')
-    yText = yDoc.getText('markdown')
-
-    yText.observe((e) => {
-      markdown = e.target.toString()
-    })
-
     if (editor) {
       console.log('editor was already loaded')
       editor.dispose()
@@ -215,12 +130,6 @@
       vimMode?.dispose()
       vimMode = null
     }
-  }
-
-  function titlelize(path) {
-    const [first, ...rest] = path.replace(/[-_\/\\]/, ' ')
-
-    return first.toUpperCase() + rest.join('')
   }
 </script>
 

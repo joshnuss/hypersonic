@@ -8,7 +8,6 @@ export function open(path, newTab = false) {
     window.open(url, '_blank')
   }
   else {
-    console.log({path})
     goto(path)
   }
 }
