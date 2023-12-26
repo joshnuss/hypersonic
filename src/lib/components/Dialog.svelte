@@ -40,27 +40,42 @@
 <style>
   @import "open-props/media.min";
 
-  ::backdrop {
+  ::backdrop, :global(body:has(.\:popover-open)::before) { 
+    z-index: var(--layer-2);
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+
     background: #0004;
     backdrop-filter: blur(2px);
     opacity: 0;
     animation: 0.3s fade-in forwards;
   }
 
+
   [popover] {
+    z-index: var(--layer-4);
+    background: var(--background-color);
     --width: 100%;
     width: var(--width);
     position: fixed;
     bottom: 0px;
     top: auto;
     left: calc(50vw - calc(var(--width) / 2));
+    padding: var(--size-7);
+    color: var(--gray-2);
+    border: solid 1px var(--gray-7);
+    border-radius: var(--radius-2);
   }
 
   [popover]:popover-open {
-    padding: var(--size-7);
-    color: var(--gray-2);
-    border: solid 1px var(--gray-8);
-    border-radius: var(--radius-2);
+    animation: var(--animation-slide-in-up) forwards;
+  }
+
+  :global(.\:popover-open) {
     animation: var(--animation-slide-in-up) forwards;
   }
 

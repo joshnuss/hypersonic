@@ -41,6 +41,7 @@
   label:has(input[type="number"]) {
     justify-content: space-between;
     & input {
+      width: 40%;
       text-align: right;
     }
   }
