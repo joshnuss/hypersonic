@@ -39,7 +39,6 @@
 
     element = document.querySelector('#editor')
     view = new EditorView({ state, parent: element })
-
   })
 
   $: if (element) {
@@ -79,4 +78,11 @@
 		font-family: 'Noto Sans Mono';
 		font-size: var(--editor-font-size);
 	}
+
+  :global(.cm-ySelectionInfo) {
+    border-radius: 3px 3px 3px 0;
+    padding: 2px 7px !important;
+    color: var(--gray-8);
+    font-family: 'Inter';
+  }
 </style>

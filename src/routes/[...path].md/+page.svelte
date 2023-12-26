@@ -34,9 +34,9 @@
     workspace = await getWorkspace(user)
 
     workspace.provider.awareness.setLocalStateField('user', {
-      name: 'Anonymous ' + Math.floor(Math.random() * 100),
-      color: 'black',
-      colorLight: 'pink'
+      name: user.name,
+      color: 'pink',
+      colorLight: 'red'
     })
 
     return () => {
