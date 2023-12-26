@@ -79,10 +79,20 @@
 		font-size: var(--editor-font-size);
 	}
 
+  :global(.cm-gutterElement) {
+    min-width: 3ch !important;
+    padding-right: 10px !important;
+  }
+
   :global(.cm-ySelectionInfo) {
     border-radius: 3px 3px 3px 0;
     padding: 2px 7px !important;
     color: var(--gray-8);
-    font-family: 'Inter';
+    font-family: Inter;
+  }
+
+  :global(.cm-activeLine), :global(.cm-activeLineGutter) {
+    box-shadow: 0px -1px var(--gray-9),
+      0px 1px var(--gray-9);
   }
 </style>

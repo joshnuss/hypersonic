@@ -62,7 +62,7 @@ export const basicDarkTheme = EditorView.theme(
       color: base07
     },
 
-    '.cm-activeLine': { backgroundColor: highlightBackground },
+    '.cm-activeLine': { background: 'transparent'},
     '.cm-selectionMatch': { backgroundColor: highlightBackground },
 
     '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
@@ -75,7 +75,6 @@ export const basicDarkTheme = EditorView.theme(
     },
 
     '.cm-gutters': {
-      marginRight: '10px',
       color: base06,
       backgroundColor: darkBackground
     },

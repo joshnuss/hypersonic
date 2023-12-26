@@ -61,7 +61,7 @@ export const setup = (() => [
   autocompletion(),
   rectangularSelection(),
   crosshairCursor(),
-  //highlightActiveLine(),
+  highlightActiveLine(),
   highlightSelectionMatches(),
   keymap.of([
     ...closeBracketsKeymap,
