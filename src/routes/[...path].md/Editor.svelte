@@ -36,7 +36,7 @@
 
     return () => {
       binding?.destroy()
-      editor?.dispose()
+      editor.dispose()
     }
   })
 
