@@ -119,9 +119,7 @@
       // for debugging
       window.editor = editor
 
-      const extension = new MonacoMarkdownExtension()
-      extension.activate(editor)
-
+      addExtensions()
       addActions()
       updateVim()
 
@@ -140,6 +138,11 @@
   })
 
   $: editor && focus($mode)
+
+  function addExtensions() {
+    const extension = new MonacoMarkdownExtension()
+    extension.activate(editor)
+  }
 
   function addActions() {
     editor.addAction({
