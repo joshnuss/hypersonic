@@ -1,5 +1,6 @@
 @import 'open-props/postcss/style';
 @import 'open-props/normalize.dark.min';
+@import "open-props/colors-hsl";
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600;900&family=Noto+Sans+Mono:wght@400&family=Inter:wght@400;500;600;900&display=swap');
 
 :root {
