@@ -26,8 +26,6 @@ export function getWorkspace(user) {
       const titles = rootDoc.getMap('titles')
 
       const workspace = {
-        room,
-        rootDoc,
         documents,
         titles,
         provider,
@@ -67,6 +65,7 @@ export function getWorkspace(user) {
             doc: {
               title: doc.getText('title'),
               text: doc.getText('markdown'),
+
               updateTitle(newTitle) {
                 if (this.title.toString() == newTitle) {
                   return
