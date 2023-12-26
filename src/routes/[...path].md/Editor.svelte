@@ -10,7 +10,7 @@
   import { MonacoMarkdownExtension } from 'monaco-markdown'
   import { marked } from 'marked'
 
-  import { mode, vim, fontSize, wordWrap, lineNumbers} from '$lib/settings'
+  import { mode, vim, fontSize, wordWrap, lineNumbers, toggleMode } from '$lib/settings'
 
   export let roomName
   export let documents
@@ -216,8 +216,9 @@
     }
   })
 
-  async function toggleMode() {
-    $mode = $mode == 'write' ? 'read' : 'write'
+  $: focus($mode)
+
+  async function focus() {
     await tick()
     editor.focus()
   }
