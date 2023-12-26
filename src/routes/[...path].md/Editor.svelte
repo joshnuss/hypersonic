@@ -20,6 +20,10 @@
 
   const dispatch = createEventDispatcher()
 
+  const client = createClient({
+    authEndpoint: '/api/liveblocks-auth'
+  })
+
   let element
   let editor
   let binding
@@ -48,11 +52,6 @@
   })
 
   $: editor && updateVim($vim)
-
-  // Set up Liveblocks client
-  const client = createClient({
-    authEndpoint: '/api/liveblocks-auth'
-  })
 
   onMount(() => {
     // Enter a multiplayer room
