@@ -62,7 +62,6 @@
 {/key}
 
 <PreferencesDialog bind:this={preferences}/>
-
 <CreateDialog bind:this={create} />
 <FileDialog bind:this={files} bind:documents bind:titles />
 
