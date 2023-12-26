@@ -200,31 +200,12 @@
     }
   }
 
-  function keydown(e) {
-    if (e.ctrlKey && e.code == 'KeyM') {
-      e.preventDefault()
-      toggleMode()
-    }
-
-    if (e.ctrlKey && e.code == 'KeyK') {
-      e.preventDefault()
-      dispatch('find')
-    }
-
-    if (e.ctrlKey && e.altKey && e.code == 'KeyN') {
-      e.preventDefault()
-      dispatch('create')
-    }
-  }
-
   function titlelize(path) {
     const [first, ...rest] = path.replace(/[-_\/\\]/, ' ')
 
     return first.toUpperCase() + rest.join('')
   }
 </script>
-
-<svelte:window on:keydown={keydown} />
 
 <div id="editor" class:hidden={$mode == 'read'} bind:this={element}></div>
 

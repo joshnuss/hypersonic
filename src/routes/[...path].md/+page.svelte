@@ -28,13 +28,31 @@
     keyboardOpen =
       Math.round(e.target.visualViewport.height) != e.target.document.documentElement.clientHeight
   }
-</script>
 
-<svelte:window on:resize={resize} />
+  function keydown(e) {
+    if (e.ctrlKey && e.code == 'KeyM') {
+      e.preventDefault()
+      toggleMode()
+    }
+
+    if (e.ctrlKey && e.code == 'KeyK') {
+      e.preventDefault()
+      files.toggle()
+    }
+
+    if (e.ctrlKey && e.altKey && e.code == 'KeyN') {
+      e.preventDefault()
+      create.toggle()
+    }
+  }
+
+</script>
 
 <svelte:head>
   <title>{title ? title : `${path}.md`}</title>
 </svelte:head>
+
+<svelte:window on:resize={resize} on:keydown={keydown}/>
 
 <header>
   <nav>
