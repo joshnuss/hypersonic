@@ -5,40 +5,32 @@
   export let text
   export let html
 
-	$: html, wireTasklists()
+  $: html, wireTasklists()
 
-	async function wireTasklists() {
-		// make sure html is rendered
-		await tick();
+  async function wireTasklists() {
+    // make sure html is rendered
+    await tick()
 
-    const checkboxes = [...(document.querySelectorAll('#preview input[type="checkbox"]'))]
+    const checkboxes = [...document.querySelectorAll('#preview input[type="checkbox"]')]
 
     checkboxes.forEach((node) => {
-			const listItem = node.parentElement
-			const offset = listItem.dataset.offset
+      const listItem = node.parentElement
+      const offset = listItem.dataset.offset
 
       if (node.changeHandler) return
 
       node.changeHandler = true
-			node.disabled = false
+      node.disabled = false
 
-			node.addEventListener('change', () => {
-				if (node.checked) {
-          text.applyDelta([
-            { retain: offset },
-            { delete: 5 },
-            { insert: '- [x]'}
-          ])
-				} else {
-          text.applyDelta([
-            { retain: offset },
-            { delete: 5 },
-            { insert: '- [ ]'}
-          ])
-				}
-			})
-		})
-	}
+      node.addEventListener('change', () => {
+        if (node.checked) {
+          text.applyDelta([{ retain: offset }, { delete: 5 }, { insert: '- [x]' }])
+        } else {
+          text.applyDelta([{ retain: offset }, { delete: 5 }, { insert: '- [ ]' }])
+        }
+      })
+    })
+  }
 </script>
 
 <div id="preview" class:visible={$mode == 'read'}>
@@ -70,7 +62,7 @@
     }
   }
 
-  #preview :global(ul:has(input[type="checkbox"])) {
+  #preview :global(ul:has(input[type='checkbox'])) {
     padding: 0;
     list-style: none;
   }

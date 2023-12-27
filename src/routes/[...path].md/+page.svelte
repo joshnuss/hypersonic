@@ -117,7 +117,7 @@
   <title>{title ? title : fullPath}</title>
 </svelte:head>
 
-<svelte:window on:resize={resize} on:keydown={keydown} on:focus={focus}/>
+<svelte:window on:resize={resize} on:keydown={keydown} on:focus={focus} />
 
 <header>
   <nav>
@@ -133,9 +133,9 @@
 
 {#key [path, doc?.text]}
   {#if doc?.text}
-    <Editor {doc} provider={workspace.provider} bind:this={editor}/>
+    <Editor {doc} provider={workspace.provider} bind:this={editor} />
 
-    <Preview {html} text={doc.text}/>
+    <Preview {html} text={doc.text} />
   {:else}
     <p>Loading...</p>
   {/if}
@@ -143,7 +143,7 @@
 
 <PreferencesDialog bind:this={dialogs.preferences} on:closed={focus} />
 <CreateDialog bind:this={dialogs.create} on:closed={focus} />
-<FileDialog bind:this={dialogs.files} bind:workspace on:closed={focus}/>
+<FileDialog bind:this={dialogs.files} bind:workspace on:closed={focus} />
 
 <footer class:keyboardOpen>
   <nav>
