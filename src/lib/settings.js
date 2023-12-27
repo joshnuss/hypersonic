@@ -1,6 +1,6 @@
 import { persisted } from 'svelte-persisted-store'
 
-export const mode = persisted('mode', 'write')
+export const mode = persisted('mode', 'write', { syncTabs: false })
 export const vim = persisted('vim', false)
 export const fontSize = persisted('fontSize', 20)
 export const wordWrap = persisted('wordWrap', true)
