@@ -12,14 +12,27 @@
 </div>
 
 <style>
+  @import "open-props/media.min";
+
   #preview {
     height: 100%;
     display: none;
-    margin: 0 3rem;
-    padding: 2rem 0;
+    margin: 1rem;
 
     &.visible {
       display: block;
+    }
+
+    @media (--sm-n-above) {
+      margin: 2rem 3rem;
+    }
+
+    @media (--md-n-above) {
+      margin: 3rem 5rem;
+    }
+
+    @media (--lg-n-above) {
+      margin: 4rem 6rem;
     }
   }
 </style>
