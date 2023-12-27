@@ -23,7 +23,7 @@ function addPositions() {
   return (tree) => {
     visit(tree, (node) => {
       if (node.tagName == 'li') {
-        node.properties.dataLine = node.position.start.line
+        node.properties.dataOffset = node.position.start.offset
       }
     })
   }
