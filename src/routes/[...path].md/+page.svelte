@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
-  import { mode, lastPage, toggleMode} from '$lib/settings'
+  import { mode, toggleMode} from '$lib/settings'
+  import { trackOpened } from '$lib/mru'
   import { getWorkspace } from '$lib/workspace'
   import Icon from '@iconify/svelte'
   import Editor from './Editor.svelte'
@@ -23,7 +24,7 @@
   let keyboardOpen = false
 
   $: if (user && path) {
-    $lastPage[user.id] = `/${path}.md`
+    trackOpened(`/${path}.md`)
   }
 
   $: fullPath = `${path}.md`
