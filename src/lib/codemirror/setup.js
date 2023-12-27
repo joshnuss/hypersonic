@@ -51,7 +51,7 @@ export const setup = (() => [
   highlightSpecialChars(),
   history(),
   //foldGutter(),
-  drawSelection(),
+  drawSelection({ drawRangeCursor: false, cursorBlinkRate: 0 }),
   dropCursor(),
   EditorState.allowMultipleSelections.of(true),
   indentOnInput(),
