@@ -135,7 +135,7 @@
   {#if doc?.text}
     <Editor {doc} provider={workspace.provider} bind:this={editor}/>
 
-    <Preview {html}/>
+    <Preview {html} text={doc.text}/>
   {:else}
     <p>Loading...</p>
   {/if}
