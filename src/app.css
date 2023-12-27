@@ -12,7 +12,7 @@ body {
   min-height: 100px;
   margin: 0;
   font-family: Inter;
-  background: var(--background-color);
+  background-color: var(--background-color);
 }
 
 h1,
