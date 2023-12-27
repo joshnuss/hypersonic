@@ -24,7 +24,7 @@
   }
 
   export function toggle() {
-    const paths = [...(workspace.documents.keys())]
+    const paths = [...workspace.documents.keys()]
 
     items = paths.map((path) => {
       const title = workspace.titles.get(path) || ''

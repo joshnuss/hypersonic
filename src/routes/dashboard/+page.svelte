@@ -11,7 +11,6 @@
 
 <h1>Dashboard</h1>
 
-
 {#if recent}
   <h2>Recent</h2>
 

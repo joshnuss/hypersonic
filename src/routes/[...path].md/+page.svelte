@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { mode, toggleMode} from '$lib/settings'
+  import { mode, toggleMode } from '$lib/settings'
   import { trackOpened } from '$lib/mru'
   import { getWorkspace } from '$lib/workspace'
   import Icon from '@iconify/svelte'
@@ -13,7 +13,10 @@
 
   export let data
 
-  $: ({ session: { user }, path } = data)
+  $: ({
+    session: { user },
+    path
+  } = data)
 
   let workspace
   let doc
@@ -64,7 +67,7 @@
     markdown = e.target.toString()
   }
 
-  $: if(workspace) loadPath(fullPath)
+  $: if (workspace) loadPath(fullPath)
 
   function resize(e) {
     keyboardOpen =
@@ -100,7 +103,7 @@
   <title>{title ? title : fullPath}</title>
 </svelte:head>
 
-<svelte:window on:resize={resize} on:keydown={keydown}/>
+<svelte:window on:resize={resize} on:keydown={keydown} />
 
 <header>
   <nav>
@@ -116,18 +119,15 @@
 
 {#key [path, doc?.text]}
   {#if doc?.text}
-    <Editor
-      {doc}
-      provider={workspace.provider}
-    />
+    <Editor {doc} provider={workspace.provider} />
 
-    <Preview {markdown}/>
+    <Preview {markdown} />
   {:else}
     <p>Loading...</p>
   {/if}
 {/key}
 
-<PreferencesDialog bind:this={dialogs.preferences}/>
+<PreferencesDialog bind:this={dialogs.preferences} />
 <CreateDialog bind:this={dialogs.create} />
 <FileDialog bind:this={dialogs.files} bind:workspace />
 

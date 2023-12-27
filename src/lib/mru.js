@@ -14,7 +14,7 @@ export function trackOpened(path) {
   mru.update(() => {
     let list = $mru[key] || []
 
-    list = [path, ...list.filter(x => x != path)]
+    list = [path, ...list.filter((x) => x != path)]
 
     if (list.length > MAX) {
       list = list.slice(0, MAX)

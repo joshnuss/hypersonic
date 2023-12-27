@@ -1,5 +1,5 @@
 <script>
-  import { vim, fontSize, wordWrap, lineNumbers} from '$lib/settings'
+  import { vim, fontSize, wordWrap, lineNumbers } from '$lib/settings'
   import Dialog from './Dialog.svelte'
 
   let dialog
@@ -38,7 +38,7 @@
     gap: 10px;
   }
 
-  label:has(input[type="number"]) {
+  label:has(input[type='number']) {
     justify-content: space-between;
     & input {
       width: 40%;
@@ -46,7 +46,7 @@
     }
   }
 
-  label:has(input[type="checkbox"]) {
+  label:has(input[type='checkbox']) {
     justify-content: flex-start;
   }
 </style>

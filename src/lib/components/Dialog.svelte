@@ -38,9 +38,10 @@
 </div>
 
 <style>
-  @import "open-props/media.min";
+  @import 'open-props/media.min';
 
-  ::backdrop, :global(body:has(.\:popover-open)::before) { 
+  ::backdrop,
+  :global(body:has(.\:popover-open)::before) {
     z-index: var(--layer-2);
     content: '';
     width: 100%;

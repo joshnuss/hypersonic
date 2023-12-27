@@ -35,6 +35,12 @@
   }
 </script>
 
-<Dialog id="create-dialog" bind:this={dialog} title="New file" on:submit={submit} on:keydown={keydown}>
+<Dialog
+  id="create-dialog"
+  bind:this={dialog}
+  title="New file"
+  on:submit={submit}
+  on:keydown={keydown}
+>
   <input bind:value={path} bind:this={input} type="string" placeholder="some/path/file.md" />
 </Dialog>

@@ -12,7 +12,7 @@
 </div>
 
 <style>
-  @import "open-props/media.min";
+  @import 'open-props/media.min';
 
   #preview {
     height: 100%;

@@ -1,11 +1,30 @@
-import {keymap, highlightSpecialChars, drawSelection, highlightActiveLine, dropCursor,
-        rectangularSelection, crosshairCursor, highlightActiveLineGutter} from "@codemirror/view"
-import { EditorState} from "@codemirror/state"
-import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, bracketMatching, foldKeymap} from "@codemirror/language"
-import {defaultKeymap, history, historyKeymap} from "@codemirror/commands"
-import {searchKeymap, highlightSelectionMatches} from "@codemirror/search"
-import {autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap} from "@codemirror/autocomplete"
-import {lintKeymap} from "@codemirror/lint"
+import {
+  keymap,
+  highlightSpecialChars,
+  drawSelection,
+  highlightActiveLine,
+  dropCursor,
+  rectangularSelection,
+  crosshairCursor,
+  highlightActiveLineGutter
+} from '@codemirror/view'
+import { EditorState } from '@codemirror/state'
+import {
+  defaultHighlightStyle,
+  syntaxHighlighting,
+  indentOnInput,
+  bracketMatching,
+  foldKeymap
+} from '@codemirror/language'
+import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
+import { searchKeymap, highlightSelectionMatches } from '@codemirror/search'
+import {
+  autocompletion,
+  completionKeymap,
+  closeBrackets,
+  closeBracketsKeymap
+} from '@codemirror/autocomplete'
+import { lintKeymap } from '@codemirror/lint'
 
 // (The superfluous function calls around the list of extensions work
 // around current limitations in tree-shaking software.)
@@ -55,7 +74,7 @@ export const setup = (() => [
   dropCursor(),
   EditorState.allowMultipleSelections.of(true),
   indentOnInput(),
-  syntaxHighlighting(defaultHighlightStyle, {fallback: true}),
+  syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
   bracketMatching(),
   closeBrackets(),
   autocompletion(),
@@ -73,4 +92,3 @@ export const setup = (() => [
     ...lintKeymap
   ])
 ])()
-

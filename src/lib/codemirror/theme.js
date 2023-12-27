@@ -39,13 +39,13 @@ export const basicDarkTheme = EditorView.theme(
       caretColor: cursor
     },
 
-          '.cm-cursor, .cm-dropCursor': { borderLeftColor: cursor, borderWidth: '1px' },
+    '.cm-cursor, .cm-dropCursor': { borderLeftColor: cursor, borderWidth: '1px' },
     '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection':
       { backgroundColor: selection },
     '.cm-fat-cursor': {
-       backgroundColor: 'var(--indigo-2) !important',
-       color: 'var(--gray-8) !important',
-       outline: 'none !important'
+      backgroundColor: 'var(--indigo-2) !important',
+      color: 'var(--gray-8) !important',
+      outline: 'none !important'
     },
 
     '.cm-panels': { backgroundColor: darkBackground, color: base03 },
@@ -62,7 +62,7 @@ export const basicDarkTheme = EditorView.theme(
       color: base07
     },
 
-    '.cm-activeLine': { background: 'transparent'},
+    '.cm-activeLine': { background: 'transparent' },
     '.cm-selectionMatch': { backgroundColor: highlightBackground },
 
     '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
@@ -211,7 +211,4 @@ export const basicDarkHighlightStyle = HighlightStyle.define([
 
 /// Extension to enable the Basic Dark theme (both the editor theme and
 /// the highlight style).
-export const theme = [
-  basicDarkTheme,
-  syntaxHighlighting(basicDarkHighlightStyle)
-]
+export const theme = [basicDarkTheme, syntaxHighlighting(basicDarkHighlightStyle)]

@@ -2,8 +2,8 @@
   import { onMount, tick } from 'svelte'
   import { mode } from '$lib/settings'
   import { keymap } from '@codemirror/view'
-  import { markdown } from "@codemirror/lang-markdown"
-  import { lineNumbers as lineNumbersExtension } from "@codemirror/view"
+  import { markdown } from '@codemirror/lang-markdown'
+  import { lineNumbers as lineNumbersExtension } from '@codemirror/view'
   import { vim as vimExtension } from '@replit/codemirror-vim'
   import { setup } from '$lib/codemirror/setup'
   import { theme } from '$lib/codemirror/theme'
@@ -19,9 +19,7 @@
   let view
 
   $: extensions = [
-    keymap.of([
-      ...yUndoManagerKeymap
-    ]),
+    keymap.of([...yUndoManagerKeymap]),
     setup,
     markdown(),
     ...($wordWrap ? [EditorView.lineWrapping] : []),
@@ -59,10 +57,7 @@
   }
 </script>
 
-<div id="editor"
-     class:hidden={$mode !== 'write'}
-     style:--editor-font-size='{$fontSize}px'
-     />
+<div id="editor" class:hidden={$mode !== 'write'} style:--editor-font-size="{$fontSize}px" />
 
 <style>
   #editor {
@@ -74,10 +69,11 @@
     }
   }
 
-	:global(.cm-content), :global(.cm-gutter) {
-		font-family: 'Noto Sans Mono';
-		font-size: var(--editor-font-size);
-	}
+  :global(.cm-content),
+  :global(.cm-gutter) {
+    font-family: 'Noto Sans Mono';
+    font-size: var(--editor-font-size);
+  }
 
   :global(.cm-gutterElement) {
     min-width: 3ch !important;
@@ -91,8 +87,10 @@
     font-family: Inter;
   }
 
-  :global(.cm-activeLine), :global(.cm-activeLineGutter) {
-    box-shadow: 0px -1px var(--gray-9),
+  :global(.cm-activeLine),
+  :global(.cm-activeLineGutter) {
+    box-shadow:
+      0px -1px var(--gray-9),
       0px 1px var(--gray-9);
   }
 </style>

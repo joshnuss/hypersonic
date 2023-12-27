@@ -6,8 +6,7 @@ export function open(path, newTab = false) {
     const base = new URL(location.protocol + '//' + location.host)
     const url = new URL(path, base)
     window.open(url, '_blank')
-  }
-  else {
+  } else {
     goto(path)
   }
 }
