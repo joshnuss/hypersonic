@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { mode, toggleMode } from '$lib/settings'
+  import { vim, mode, toggleMode } from '$lib/settings'
   import { trackOpened } from '$lib/mru'
   import { getWorkspace } from '$lib/workspace'
   import Icon from '@iconify/svelte'
@@ -88,6 +88,11 @@
     if (e.ctrlKey && e.altKey && e.code == 'KeyN') {
       e.preventDefault()
       dialogs.create.toggle()
+    }
+
+    if (e.ctrlKey && e.altKey && e.code == 'KeyV') {
+      e.preventDefault()
+      $vim = !$vim
     }
   }
 
