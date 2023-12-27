@@ -22,6 +22,7 @@
   let doc
   let title
   let markdown = ''
+  let editor
 
   let dialogs = {}
   let keyboardOpen = false
@@ -78,6 +79,10 @@
     if (e.ctrlKey && e.code == 'KeyM') {
       e.preventDefault()
       toggleMode()
+
+      if ($mode == 'write') {
+        editor.focus()
+      }
     }
 
     if (e.ctrlKey && e.code == 'KeyK') {
@@ -124,7 +129,7 @@
 
 {#key [path, doc?.text]}
   {#if doc?.text}
-    <Editor {doc} provider={workspace.provider} />
+    <Editor {doc} provider={workspace.provider} bind:this={editor}/>
 
     <Preview {markdown} />
   {:else}

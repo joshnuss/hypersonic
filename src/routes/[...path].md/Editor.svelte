@@ -39,12 +39,6 @@
     view = new EditorView({ state, parent: element })
   })
 
-  $: if (element) {
-    tick().then(() => {
-      element.focus()
-    })
-  }
-
   $: view && update(extensions)
 
   function update() {
@@ -54,6 +48,10 @@
     })
 
     view.setState(state)
+  }
+
+  export function focus() {
+    setTimeout(() => view.focus(), 0)
   }
 </script>
 
