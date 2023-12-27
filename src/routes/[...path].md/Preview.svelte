@@ -17,19 +17,30 @@
       const listItem = node.parentElement
       const offset = listItem.dataset.offset
 
-      if (node.changeHandler) return
-
-      node.changeHandler = true
       node.disabled = false
 
       node.addEventListener('change', () => {
-        if (node.checked) {
-          text.applyDelta([{ retain: offset }, { delete: 5 }, { insert: '- [x]' }])
-        } else {
-          text.applyDelta([{ retain: offset }, { delete: 5 }, { insert: '- [ ]' }])
-        }
+        handleChange(node, offset)
+      })
+
+      node.addEventListener('click', (e) => {
+        e.stopPropagation()
+      })
+
+      listItem.addEventListener('click', () => {
+        node.checked = !node.checked
+
+        handleChange(node, offset)
       })
     })
+  }
+
+  function handleChange(node, offset) {
+    if (node.checked) {
+      text.applyDelta([{ retain: offset }, { delete: 5 }, { insert: '- [x]' }])
+    } else {
+      text.applyDelta([{ retain: offset }, { delete: 5 }, { insert: '- [ ]' }])
+    }
   }
 </script>
 
