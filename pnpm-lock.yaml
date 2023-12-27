@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@sentry/sveltekit':
-    specifier: ^7.70.0
+    specifier: ^7.89.0
     version: 7.89.0(@sveltejs/kit@1.30.3)(svelte@4.2.7)
 
 devDependencies:
@@ -128,8 +128,8 @@ devDependencies:
     specifier: ^4.2.7
     version: 4.2.7
   svelte-persisted-store:
-    specifier: ^0.7.0
-    version: 0.7.0(svelte@4.2.7)
+    specifier: ^0.8.0
+    version: 0.8.0(svelte@4.2.7)
   unified:
     specifier: ^11.0.4
     version: 11.0.4
@@ -4077,8 +4077,8 @@ packages:
     dependencies:
       svelte: 4.2.7
 
-  /svelte-persisted-store@0.7.0(svelte@4.2.7):
-    resolution: {integrity: sha512-PczYS60ysScQ0DmTCPXQm5rwt8FfQzSlx0lCbljbE6hTCKqXaw2bP8KH1+B7QTPmuiy/QbAk4pjYpNCmZhjyRw==}
+  /svelte-persisted-store@0.8.0(svelte@4.2.7):
+    resolution: {integrity: sha512-MwVIlJXQFxp+qCbCelsvHYNxxy8AlRJguPj7m+IBB0lpO3jsxFM3wcjO3ytkoZPkUbwUssTLs0XNIFSJL2jXqw==}
     engines: {node: '>=0.14'}
     peerDependencies:
       svelte: ^3.48.0 || >4.0.0

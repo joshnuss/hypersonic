@@ -49,7 +49,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.0.0",
     "svelte": "^4.2.7",
-    "svelte-persisted-store": "^0.7.0",
+    "svelte-persisted-store": "^0.8.0",
     "unified": "^11.0.4",
     "unist-util-visit": "^5.0.0",
     "vite": "^5.0.3",
@@ -60,6 +60,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@sentry/sveltekit": "^7.70.0"
+    "@sentry/sveltekit": "^7.89.0"
   }
 }
