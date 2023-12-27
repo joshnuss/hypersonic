@@ -27,7 +27,8 @@
         e.stopPropagation()
       })
 
-      listItem.addEventListener('click', () => {
+      listItem.addEventListener('click', (e) => {
+        e.stopPropagation()
         node.checked = !node.checked
 
         handleChange(node, offset)
@@ -78,7 +79,11 @@
     list-style: none;
   }
 
-  #preview :global(li:has(input:checked)) {
+  #preview :global(ul:has(input[type='checkbox']) ul) {
+    padding: 0 10px;
+  }
+
+  #preview :global(li:has(> input:checked)) {
     text-decoration: line-through;
     color: var(--gray-7);
   }
