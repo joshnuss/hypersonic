@@ -23,9 +23,13 @@
 
     dispatch('submit')
   }
+
+  function handleToggle(e) {
+    dispatch(e.newState)
+  }
 </script>
 
-<div {id} bind:this={dialog} popover on:keydown>
+<div {id} bind:this={dialog} popover on:keydown on:toggle={handleToggle}>
   {#if title}
     <h2>{title}</h2>
   {/if}

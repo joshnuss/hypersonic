@@ -41,6 +41,7 @@
   title="New file"
   on:submit={submit}
   on:keydown={keydown}
+  on:closed
 >
   <input bind:value={path} bind:this={input} type="string" placeholder="some/path/file.md" />
 </Dialog>

@@ -27,13 +27,12 @@
   let dialogs = {}
   let keyboardOpen = false
 
-  $: if (user && path) {
-    trackOpened(`/${path}.md`)
-  }
-
+  $: if (user && path) trackOpened(`/${path}.md`)
   $: fullPath = `${path}.md`
   $: html = marked(markdown)
   $: saveTitle(html)
+  $: if (workspace) loadPath(fullPath)
+  $: if ($mode == 'write') focus()
 
   onMount(async () => {
     workspace = await getWorkspace(user)
@@ -53,13 +52,16 @@
   async function loadPath(path) {
     const result = await workspace.loadDocument(path)
 
-    if (!result.existing) $mode = 'write'
+    if (!result.existing) {
+      $mode = 'write'
+    }
 
     if (doc) {
       doc.text.unobserve(updateMarkdown)
     }
 
     doc = result.doc
+    focus()
 
     doc.text.observe(updateMarkdown)
   }
@@ -67,8 +69,6 @@
   function updateMarkdown(e) {
     markdown = e.target.toString()
   }
-
-  $: if (workspace) loadPath(fullPath)
 
   function resize(e) {
     keyboardOpen =
@@ -107,13 +107,17 @@
 
     doc?.updateTitle(title)
   }
+
+  function focus() {
+    editor?.focus()
+  }
 </script>
 
 <svelte:head>
   <title>{title ? title : fullPath}</title>
 </svelte:head>
 
-<svelte:window on:resize={resize} on:keydown={keydown} />
+<svelte:window on:resize={resize} on:keydown={keydown} on:focus={focus}/>
 
 <header>
   <nav>
@@ -137,9 +141,9 @@
   {/if}
 {/key}
 
-<PreferencesDialog bind:this={dialogs.preferences} />
-<CreateDialog bind:this={dialogs.create} />
-<FileDialog bind:this={dialogs.files} bind:workspace />
+<PreferencesDialog bind:this={dialogs.preferences} on:closed={focus} />
+<CreateDialog bind:this={dialogs.create} on:closed={focus} />
+<FileDialog bind:this={dialogs.files} bind:workspace on:closed={focus}/>
 
 <footer class:keyboardOpen>
   <nav>

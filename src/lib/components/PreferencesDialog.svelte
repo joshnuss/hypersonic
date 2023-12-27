@@ -9,7 +9,7 @@
   }
 </script>
 
-<Dialog id="preferences-dialog" bind:this={dialog} title="Preferences">
+<Dialog id="preferences-dialog" bind:this={dialog} title="Preferences" on:closed>
   <label>
     <span>Font size</span>
     <input bind:value={$fontSize} type="number" min="10" max="30" />

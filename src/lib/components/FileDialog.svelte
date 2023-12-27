@@ -1,6 +1,9 @@
 <script>
+  import { createEventDispatcher } from 'svelte'
   import { createSearch } from '$lib/search'
   import { open } from '$lib/navigation'
+
+  const dispatch = createEventDispatcher()
 
   export let workspace
 
@@ -89,9 +92,13 @@
     pattern = ''
     focusedIndex = 0
   }
+
+  function handleToggle(e) {
+    dispatch(e.newState)
+  }
 </script>
 
-<div bind:this={dialog} popover>
+<div bind:this={dialog} popover on:toggle={handleToggle}>
   <form method="dialog" on:submit={submit}>
     <input
       name="search"
