@@ -35,4 +35,14 @@
       margin: 4rem 6rem;
     }
   }
+
+  #preview :global(ul:has(input[type="checkbox"])) {
+    padding: 0;
+    list-style: none;
+  }
+
+  #preview :global(li:has(input:checked)) {
+    text-decoration: line-through;
+    color: var(--gray-7);
+  }
 </style>
