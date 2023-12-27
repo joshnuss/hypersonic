@@ -9,7 +9,7 @@
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
-  import { marked } from 'marked'
+  import { convertMarkdown } from '$lib/markdown'
 
   export let data
 
@@ -29,7 +29,7 @@
 
   $: if (user && path) trackOpened(`/${path}.md`)
   $: fullPath = `${path}.md`
-  $: html = marked(markdown)
+  $: html = convertMarkdown(markdown)
   $: saveTitle(html)
   $: if (workspace) loadPath(fullPath)
   $: if ($mode == 'write') focus()
@@ -135,7 +135,7 @@
   {#if doc?.text}
     <Editor {doc} provider={workspace.provider} bind:this={editor}/>
 
-    <Preview {markdown} />
+    <Preview {html}/>
   {:else}
     <p>Loading...</p>
   {/if}
