@@ -64,3 +64,22 @@ code,
 pre {
   font-family: 'Noto Sans Mono', monospace;
 }
+
+ul {
+  margin: 3.5rem 0;
+  padding-left: 2rem;
+}
+
+ul ul {
+  margin: 0 0 1rem 0;
+  padding-left: 1rem;
+}
+
+li {
+  margin: 0.5rem 0 0.75rem 0;
+}
+
+b, strong {
+  font-weight: normal;
+  color: var(--gray-0);
+}

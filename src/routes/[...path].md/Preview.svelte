@@ -85,6 +85,6 @@
 
   #preview :global(li:has(> input:checked)) {
     text-decoration: line-through;
-    color: var(--gray-7);
+    color: var(--gray-6);
   }
 </style>
