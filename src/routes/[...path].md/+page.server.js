@@ -7,7 +7,7 @@ export async function load({ url, params, locals }) {
   const session = await locals.getSession()
 
   if (!session?.user) {
-    throw redirect(303, `/auth/signin?callbackUrl=${url}`)
+    throw redirect(303, `/signin?callbackUrl=${url}`)
   }
 
   return { path }
