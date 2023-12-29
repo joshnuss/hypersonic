@@ -6,7 +6,7 @@ A multi-player markdown editor and wiki. Works offline too!
 
 ## Features
 
-- Markdown editor using VSCode's Monaco.
+- Markdown editor using [Codemirror](https://codemirror.net).
 - Multi-user, multi-device.
 - Backed by CRDTs via [Yjs](https://yjs.dev) and [Liveblocks](https://liveblocks.io/document/yjs).
 - Ultra-slim UI. Minimal menus & toolbars.
