@@ -159,7 +159,7 @@
   footer,
   header {
     position: fixed;
-    right: 15px;
+    right: 5px;
     z-index: var(--layer-2);
   }
 
