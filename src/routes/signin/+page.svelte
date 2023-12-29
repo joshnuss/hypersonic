@@ -37,8 +37,8 @@
 <main>
   {#each providers as provider}
     <button
-      style:--background={provider.background}
-      style:--color={provider.color}
+      style:background={provider.background}
+      style:color={provider.color}
       on:click={() => click(provider)}>
 
       <Icon icon={provider.icon}/>
@@ -91,8 +91,6 @@
     gap: var(--size-2);
     align-items: center;
     justify-content: center;
-    color: var(--color);
-    background: var(--background);
     width: var(--button-width);
   }
 
