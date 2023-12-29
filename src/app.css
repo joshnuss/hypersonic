@@ -83,6 +83,19 @@ li.task-list-item {
   padding: 0;
 }
 
+ul:not(.contains-task-list) {
+  list-style-type: none;
+
+  & li::before {
+    content: "\2022";
+    color: var(--indigo-4);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+}
+
 b, strong {
   font-weight: normal;
   color: var(--gray-0);
