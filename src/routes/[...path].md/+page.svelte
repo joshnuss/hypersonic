@@ -25,7 +25,6 @@
   let editor
 
   let dialogs = {}
-  let keyboardOpen = false
 
   $: if (user && path) trackOpened(`/${path}.md`)
   $: fullPath = `${path}.md`
@@ -70,11 +69,6 @@
     markdown = e.target.toString()
   }
 
-  function resize(e) {
-    keyboardOpen =
-      Math.round(e.target.visualViewport.height) != e.target.document.documentElement.clientHeight
-  }
-
   function keydown(e) {
     if (e.ctrlKey && e.code == 'KeyM') {
       e.preventDefault()
@@ -117,7 +111,7 @@
   <title>{title ? title : fullPath}</title>
 </svelte:head>
 
-<svelte:window on:resize={resize} on:keydown={keydown} on:focus={focus} />
+<svelte:window on:keydown={keydown} on:focus={focus} />
 
 <header>
   <nav>
@@ -145,7 +139,7 @@
 <CreateDialog bind:this={dialogs.create} on:closed={focus} />
 <FileDialog bind:this={dialogs.files} bind:workspace on:closed={focus} />
 
-<footer class:keyboardOpen>
+<footer>
   <nav>
     <button on:click={() => dialogs.preferences.toggle()} title="Preferences">
       <Icon icon="mdi:settings" />
@@ -184,10 +178,6 @@
 
   footer {
     bottom: 12px;
-
-    &.keyboardOpen {
-      display: none;
-    }
   }
 
   nav button {
