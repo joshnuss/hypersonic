@@ -13,6 +13,9 @@ export const handle = SvelteKitAuth({
       clientSecret: GITHUB_SECRET
     })
   ],
+  pages: {
+    signin: '/signin'
+  },
   callbacks: {
     async session({ session, user }) {
       session.user.id = user.id
