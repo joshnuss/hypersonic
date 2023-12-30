@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte'
-  import { getRecent } from '$lib/mru'
+  import { getRecent } from '$lib/usage'
 
   let recent
 

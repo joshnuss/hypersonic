@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import { vim, mode, toggleMode } from '$lib/settings'
-  import { trackOpened } from '$lib/mru'
+  import { trackOpened } from '$lib/usage'
   import { getWorkspace } from '$lib/workspace'
   import Icon from '@iconify/svelte'
   import Editor from './Editor.svelte'

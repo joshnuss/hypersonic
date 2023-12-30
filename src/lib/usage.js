@@ -4,15 +4,15 @@ import { user } from '$lib/user'
 
 const MAX = 5
 
-export const mru = persisted('mru', {})
+export const usage = persisted('usage', {})
 
 export function trackOpened(path) {
   const userId = get(user).id
   const key = `user:${userId}`
-  const $mru = get(mru)
+  const $usage = get(usage)
 
-  mru.update(() => {
-    let list = $mru[key] || []
+  usage.update(() => {
+    let list = $usage[key] || []
 
     list = [path, ...list.filter((x) => x != path)]
 
@@ -21,7 +21,7 @@ export function trackOpened(path) {
     }
 
     return {
-      ...$mru,
+      ...$usage,
       [key]: list
     }
   })
@@ -30,7 +30,7 @@ export function trackOpened(path) {
 export function getRecent() {
   const userId = get(user).id
   const key = `user:${userId}`
-  const $mru = get(mru)[key]
+  const $usage = get(usage)[key]
 
-  return $mru || []
+  return $usage || []
 }
