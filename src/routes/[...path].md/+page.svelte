@@ -26,8 +26,8 @@
 
   let dialogs = {}
 
-  $: if (user && path) trackOpened(`${path}.md`)
   $: fullPath = `${path}.md`
+  $: if (user && path) trackOpened(fullPath)
   $: html = convertMarkdown(markdown)
   $: saveTitle(html)
   $: if (workspace) loadPath(fullPath)
