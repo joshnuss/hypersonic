@@ -43,6 +43,7 @@
 
       <Icon icon={provider.icon}/>
       <span>Sign in with {provider.label}</span>
+
     </button>
   {/each}
 </main>
