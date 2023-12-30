@@ -70,9 +70,6 @@ devDependencies:
   '@sveltejs/vite-plugin-svelte':
     specifier: ^3.0.0
     version: 3.0.0(svelte@4.2.7)(vite@5.0.3)
-  cm6-theme-basic-dark:
-    specifier: ^0.2.0
-    version: 0.2.0(@codemirror/language@6.9.3)(@codemirror/state@6.3.3)(@codemirror/view@6.22.3)(@lezer/highlight@1.2.0)
   codemirror:
     specifier: ^6.0.1
     version: 6.0.1(@lezer/common@1.1.2)
@@ -1843,20 +1840,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: false
-
-  /cm6-theme-basic-dark@0.2.0(@codemirror/language@6.9.3)(@codemirror/state@6.3.3)(@codemirror/view@6.22.3)(@lezer/highlight@1.2.0):
-    resolution: {integrity: sha512-+mNNJecRtxS/KkloMDCQF0oTrT6aFGRZTjnBcdT5UG1pcDO4Brq8l1+0KR/8dZ7hub2gOGOzoi3rGFD8GzlH7Q==}
-    peerDependencies:
-      '@codemirror/language': ^6.0.0
-      '@codemirror/state': ^6.0.0
-      '@codemirror/view': ^6.0.0
-      '@lezer/highlight': ^1.0.0
-    dependencies:
-      '@codemirror/language': 6.9.3
-      '@codemirror/state': 6.3.3
-      '@codemirror/view': 6.22.3
-      '@lezer/highlight': 1.2.0
-    dev: true
 
   /code-red@1.0.4:
     resolution: {integrity: sha512-7qJWqItLA8/VPVlKJlFXU+NBlo/qyfs39aJcuMT/2ere32ZqvF5OSxgdM5xOfJJ7O429gg2HM47y8v9P+9wrNw==}
