@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 import { persisted } from 'svelte-persisted-store'
 import { user } from '$lib/user'
 
-const MAX = 5
+const MAX = 10
 
 export const usage = persisted('usage', {})
 
