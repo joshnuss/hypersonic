@@ -27,7 +27,7 @@
   let dialogs = {}
 
   $: fullPath = `${path}.md`
-  $: if (user && path) trackOpened(fullPath)
+  $: if (user) trackOpened(fullPath)
   $: html = convertMarkdown(markdown)
   $: saveTitle(html)
   $: if (workspace) loadPath(fullPath)
@@ -50,6 +50,8 @@
 
   async function loadPath(path) {
     const result = await workspace.loadDocument(path)
+
+    console.log('load', path)
 
     if (!result.existing) {
       $mode = 'write'
