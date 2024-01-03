@@ -1,0 +1,28 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch server",
+			"request": "launch",
+			"runtimeArgs": ["dotenv", "pnpm", "dev"],
+			"runtimeExecutable": "pnpm",
+			"skipFiles": ["<node_internals>/**"],
+			"type": "node",
+			"console": "integratedTerminal"
+		},
+
+		{
+			"type": "msedge",
+			"request": "launch",
+			"name": "Launch Edge",
+			"url": "http://127.0.0.1:5173",
+			"webRoot": "${workspaceFolder}"
+		}
+	],
+	"compounds": [
+		{
+			"name": "Both",
+			"configurations": ["Launch server", "Launch Edge"]
+		}
+	]
+}
