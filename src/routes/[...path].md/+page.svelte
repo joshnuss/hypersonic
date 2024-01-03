@@ -118,7 +118,7 @@
 
 <header>
   <nav>
-    <button class="mode" on:click={toggleMode} title={$mode == 'write' ? 'View' : 'Edit'}>
+    <button class="mode" on:click={toggleMode} title="{$mode == 'write' ? 'View' : 'Edit'} CTRL+M">
       {#if $mode == 'write'}
         <Icon icon="ant-design:read-outline" />
       {:else}
