@@ -50,14 +50,14 @@ devDependencies:
     specifier: ^1.2.0
     version: 1.2.0
   '@liveblocks/client':
-    specifier: ^1.9.0
-    version: 1.9.0
+    specifier: ^1.9.1
+    version: 1.9.1
   '@liveblocks/node':
-    specifier: ^1.9.0
-    version: 1.9.0
+    specifier: ^1.9.1
+    version: 1.9.1
   '@liveblocks/yjs':
-    specifier: ^1.9.0
-    version: 1.9.0(yjs@13.6.10)
+    specifier: ^1.9.1
+    version: 1.9.1(yjs@13.6.10)
   '@prisma/client':
     specifier: ^5.7.1
     version: 5.7.1(prisma@5.7.1)
@@ -1042,20 +1042,20 @@ packages:
       '@lezer/highlight': 1.2.0
     dev: true
 
-  /@liveblocks/client@1.9.0:
-    resolution: {integrity: sha512-Q0wvvjDBgUgfp4GS1JoZ8J0ZRpgtYKGXNWVyOYKAaqiKrynjVsmhNkH5bm9+7OZ/PckSfochdbym9GnlKwKDug==}
+  /@liveblocks/client@1.9.1:
+    resolution: {integrity: sha512-v7s9mCcd7i/CNSF0cUlyj3wWJWwwRbNlIv15k6I67Wf7JquMkOm0n+WQUbB1VLsSew415i3AJjnAvp6Z4GJMVg==}
     dependencies:
-      '@liveblocks/core': 1.9.0
+      '@liveblocks/core': 1.9.1
     dev: true
 
-  /@liveblocks/core@1.9.0:
-    resolution: {integrity: sha512-dBrcrUs3fld8ReUMK0603GUW17r1GB0dCz9pDy6pNN0AZnSNveUR+chr8y1+MPIz1uJeLomzy9AvSHhBDouT2A==}
+  /@liveblocks/core@1.9.1:
+    resolution: {integrity: sha512-D44JLvkxIJYg52WbrfB0pum15FZQ1QtwNHSAsmmJ8QioANjLMsXxYkYTn0GWL1oIDYHp8xbZlSXeYfsmnMtR9A==}
     dev: true
 
-  /@liveblocks/node@1.9.0:
-    resolution: {integrity: sha512-HjTq//JPKXFnKf5cSHciZy3s/vS/3uoPUzOBb+/7a6+XFeoec88LXhy4AI4wx3fIxkTI2A/PO+VNJPQ9nJu5nw==}
+  /@liveblocks/node@1.9.1:
+    resolution: {integrity: sha512-DUKhrFUwjQeaqC2nRDGukQbuzlsbor3Wrr3+M/AXB+kdkJnyd9NH+6CKCdAu0yDa0iXWbmuWREUMsVYxnFQ7Ew==}
     dependencies:
-      '@liveblocks/core': 1.9.0
+      '@liveblocks/core': 1.9.1
       '@stablelib/base64': 1.0.1
       fast-sha256: 1.3.0
       node-fetch: 2.7.0
@@ -1063,13 +1063,13 @@ packages:
       - encoding
     dev: true
 
-  /@liveblocks/yjs@1.9.0(yjs@13.6.10):
-    resolution: {integrity: sha512-V+fDH7SCXNsHOVZP531xeiagnfp/Z+rm7KYCaeVnYvC2VoKuG3fAwcFfVle8pXnYVPXpUuNSQ2TSatXGz51KvQ==}
+  /@liveblocks/yjs@1.9.1(yjs@13.6.10):
+    resolution: {integrity: sha512-B0K0PfPGyFzbM9yHu85p2wAO/onwi2gu+Yx6Q4IES8dNImsNeT2DLb1Ump9GDAUvmom1H2WxBP06UzrL5tR1Vg==}
     peerDependencies:
       yjs: ^13.6.1
     dependencies:
-      '@liveblocks/client': 1.9.0
-      '@liveblocks/core': 1.9.0
+      '@liveblocks/client': 1.9.1
+      '@liveblocks/core': 1.9.1
       js-base64: 3.7.5
       yjs: 13.6.10
     dev: true
