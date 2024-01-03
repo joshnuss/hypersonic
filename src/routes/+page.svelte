@@ -9,6 +9,6 @@
 
 {JSON.stringify($page.data)}
 
-<button on:click={() => signIn('github', { callbackUrl: '/dashboard' })}>
+<button on:click={() => signIn('github')}>
   Sign In
 </button>
