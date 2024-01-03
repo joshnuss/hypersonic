@@ -1,8 +1,8 @@
 import { SvelteKitAuth } from '@auth/sveltekit'
 import { AUTH_SECRET } from '$env/static/private'
 import { PrismaAdapter } from '@auth/prisma-adapter'
+import { providers } from 'auth-env'
 import { db } from '$lib/server/db'
-import { providers } from 'authjs-env'
 
 export const handle = SvelteKitAuth({
   adapter: PrismaAdapter(db),
