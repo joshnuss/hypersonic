@@ -102,4 +102,9 @@
     background: var(--gray-4);
     text-shadow: 0 1px 0 var(--gray-2);
   }
+
+  #preview :global(img[src^="icons/"]) {
+    display: inline-block;
+    height: 1rem;
+  }
 </style>
