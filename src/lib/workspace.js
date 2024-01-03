@@ -39,13 +39,13 @@ export function getWorkspace(user) {
           documents.set(path, doc)
 
           if (path == 'welcome.md') {
-            this.update(doc, { path, title: 'Welcome', text: welcomeTemplate })
+            await this.update(doc, { path, title: 'Welcome', text: welcomeTemplate })
           } else {
             const withoutExtension = path.replace(/.md$/, '')
             const title = titlelize(withoutExtension)
             const text = `# ${title}`
 
-            this.update(doc, { path, title, text })
+            await this.update(doc, { path, title, text })
           }
 
           return doc
