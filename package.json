@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
+    "dev": "dotenv vite dev",
     "build": "prisma generate && vite build",
     "preview": "vite preview",
     "lint": "prettier --check . && eslint .",
@@ -31,7 +31,7 @@
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^1.30.3",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "authjs-env": "^1.0.0",
+    "auth-env": "^1.0.0",
     "codemirror": "^6.0.1",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.28.0",
