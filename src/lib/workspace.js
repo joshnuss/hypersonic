@@ -39,23 +39,23 @@ export function getWorkspace(user) {
           documents.set(path, doc)
 
           if (path == 'welcome.md') {
-            const title = 'Welcome'
-
-            doc.getText('title').insert(0, title)
-            doc.getText('markdown').insert(0, welcomeTemplate)
-
-            titles.set(path, title)
+            this.update(doc, { path, title: 'Welcome', text: welcomeTemplate })
           } else {
             const withoutExtension = path.replace(/.md$/, '')
             const title = titlelize(withoutExtension)
+            const text = `# ${title}`
 
-            doc.getText('title').insert(0, title)
-            doc.getText('markdown').insert(0, `# ${title}`)
-
-            titles.set(path, title)
+            this.update(doc, { path, title, text })
           }
 
           return doc
+        },
+
+        async update(doc, { path, title, text }) {
+          doc.getText('title').insert(0, title)
+          doc.getText('markdown').insert(0, text)
+
+          titles.set(path, title)
         },
 
         async loadDocument(path) {
