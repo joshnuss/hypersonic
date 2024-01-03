@@ -28,7 +28,7 @@
 
   $: fullPath = `${path}.md`
   $: if (user) trackOpened(fullPath)
-  $: html = convertMarkdown(markdown)
+  $: html = convertMarkdown(markdown, fullPath)
   $: saveTitle(html)
   $: if (workspace) loadPath(fullPath)
   $: if ($mode == 'write') focus()
@@ -61,10 +61,11 @@
       doc.text.unobserve(updateMarkdown)
     }
 
-    doc = result.doc
     focus()
 
+    doc = result.doc
     doc.text.observe(updateMarkdown)
+    markdown = doc.text.toString()
   }
 
   function updateMarkdown(e) {
