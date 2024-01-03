@@ -1,5 +1,6 @@
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
+import rehypeRaw from 'rehype-raw'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import remarkGfm from 'remark-gfm'
@@ -10,7 +11,8 @@ export function convertMarkdown(markdown) {
   const file = unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(rehypeSanitize)
     .use(rehypeStringify)
     .use(addPositions)

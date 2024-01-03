@@ -112,6 +112,9 @@ devDependencies:
   prisma:
     specifier: ^5.7.1
     version: 5.7.1
+  rehype-raw:
+    specifier: ^7.0.0
+    version: 7.0.0
   rehype-sanitize:
     specifier: ^6.0.0
     version: 6.0.0
@@ -3841,6 +3844,14 @@ packages:
   /regexpp@3.2.0:
     resolution: {integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==}
     engines: {node: '>=8'}
+    dev: true
+
+  /rehype-raw@7.0.0:
+    resolution: {integrity: sha512-/aE8hCfKlQeA8LmyeyQvQF3eBiLRGNlfBJEvWH7ivp9sBqs7TNqBL5X3v157rM4IFETqDnIOO+z5M/biZbo9Ww==}
+    dependencies:
+      '@types/hast': 3.0.3
+      hast-util-raw: 9.0.1
+      vfile: 6.0.1
     dev: true
 
   /rehype-sanitize@6.0.0:
