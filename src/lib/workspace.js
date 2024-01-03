@@ -3,6 +3,7 @@ import { createClient } from '@liveblocks/client'
 import * as Y from 'yjs'
 import { IndexeddbPersistence } from 'y-indexeddb'
 import { titlelize } from '$lib/strings'
+import { default as welcomeTemplate } from '$templates/welcome.md?raw'
 
 const client = createClient({
   authEndpoint: '/api/liveblocks-auth'
@@ -37,13 +38,22 @@ export function getWorkspace(user) {
 
           documents.set(path, doc)
 
-          const withoutExtension = path.replace(/.md$/, '')
-          const title = titlelize(withoutExtension)
+          if (path == 'welcome.md') {
+            const title = 'Welcome'
 
-          doc.getText('title').insert(0, title)
-          doc.getText('markdown').insert(0, `# ${title}`)
+            doc.getText('title').insert(0, title)
+            doc.getText('markdown').insert(0, welcomeTemplate)
 
-          titles.set(path, title)
+            titles.set(path, title)
+          } else {
+            const withoutExtension = path.replace(/.md$/, '')
+            const title = titlelize(withoutExtension)
+
+            doc.getText('title').insert(0, title)
+            doc.getText('markdown').insert(0, `# ${title}`)
+
+            titles.set(path, title)
+          }
 
           return doc
         },
