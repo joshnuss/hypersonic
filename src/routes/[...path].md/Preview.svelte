@@ -87,4 +87,19 @@
     text-decoration: line-through;
     color: var(--gray-6);
   }
+
+  #preview :global(kbd) {
+    margin: 0px 0.1em;
+    padding: 0.1em 0.6em;
+    border-radius: var(--radius-2);
+    border: 1px solid var(--gray-5);
+    color: var(--gray-8);
+    line-height: 1.4;
+    font-family: 'Noto Sans Mono';
+    font-size: 13px;
+    display: inline-block;
+    box-shadow: var(--shadow-2), inset 0px 0px 0px 1px var(--gray-4);
+    background: var(--gray-4);
+    text-shadow: 0 1px 0 var(--gray-2);
+  }
 </style>
