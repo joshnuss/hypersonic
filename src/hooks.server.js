@@ -10,7 +10,8 @@ export const handle = SvelteKitAuth({
   providers,
 
   pages: {
-    signin: '/signin'
+    signin: '/signin',
+    newUser: '/welcome.md'
   },
   callbacks: {
     async session({ session, user }) {
