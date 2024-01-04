@@ -59,8 +59,14 @@
     font-size: 1rem;
     font-weight: normal;
     padding: 1rem;
-    color: var(--gray-2);
+    color: var(--gray-1);
     background: var(--violet-5);
     border-radius: var(--radius-2);
+    border: solid 1px var(--voilet-4);
+    transition: 0.3s all var(--ease-elastic-1);
+
+    &:hover {
+      box-shadow: 0 5px 25px rgba(145, 92, 182, .4);
+    }
   }
 </style>
