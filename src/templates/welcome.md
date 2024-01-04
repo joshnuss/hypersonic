@@ -1,6 +1,6 @@
 # Welcome!
 
-**Hypersonic** is a slim editor for writing, note taking and task lists.
+**Hypersonic** is a slim markdown editor for writing, note taking and task lists.
 
 - It **syncs** across all devices.
 - It supports **multi-player** editing.
