@@ -5,9 +5,8 @@ Hypersonic can be self hosted **for free**.
 ## License
 
 - Free usage is limited to one user.
-- More than one user, requires a paid license.
+- More than one user requires a paid license.
 - It is based on the honor system.
-- Sponsorship is welcome, but not required. It helps maintain this work.
 
 ## Overview
 
