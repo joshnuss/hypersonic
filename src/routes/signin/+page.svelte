@@ -12,13 +12,6 @@
       background: '#333'
     },
     {
-      icon: 'mdi-apple',
-      key: 'apple',
-      label: 'Apple',
-      color: 'white',
-      background: 'black'
-    },
-    {
       icon: 'mdi-google',
       key: 'google',
       label: 'Google',
