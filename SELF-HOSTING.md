@@ -13,11 +13,11 @@ Hypersonic can be self hosted **for free**.
 
 Self hosting is easy. It requires only a few things:
 
-- **Hosting**: Free and low cost options work well, like [Vercel](https://vercel.com), [Railway](https://railway.app), [Netlify](https://www.netlify.com)
-- **Postgres Database**: There are free options, like [Neon](https://neon.tech), [Vercel](https://vercel.com), [Supabase](https://supabase.com)
-- **Liveblocks**: Storage and syncing uses [Liveblocks](https://liveblocks.io). They have a [free account](https://liveblocks.io/pricing) too.
+- **A Hosting account**: Free and low cost options work well, like [Vercel](https://vercel.com), [Railway](https://railway.app), [Netlify](https://www.netlify.com)
+- **A Postgres Database**: There are free options, like [Neon](https://neon.tech), [Vercel](https://vercel.com), [Supabase](https://supabase.com)
+- **Liveblocks**: Storage and syncing is done via [Liveblocks](https://liveblocks.io). They have a [free account](https://liveblocks.io/pricing) too.
 
-- **OAuth**: The project uses [Auth.js](https://authjs.dev), and all providers are supported. An easy-to-setup option is GitHub or Google. For a full list of providers, see [list of env vars](https://github.com/joshnuss/auth-env#supported-providers)
+- **OAuth credentials**: The project uses [Auth.js](https://authjs.dev), and all providers are supported. An easy-to-setup option is GitHub or Google. For a full list of providers, see [list of env vars](https://github.com/joshnuss/auth-env#supported-providers)
 - **Sentry** (optional): error tracking is managed with [Sentry](https://sentry.io)
 - **Fathom analytics** (optional): for analytics, create a [Fathom](https://usefathom.com) account.
 
