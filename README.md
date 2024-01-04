@@ -2,7 +2,7 @@
 
 # Hypersonic
 
-A multi-player markdown editor and wiki. Works offline too!
+A multi-player markdown editor and wiki. [Self-hostable](/SELF-HOSTING.md) too!
 
 ## Features
 
@@ -13,6 +13,7 @@ A multi-player markdown editor and wiki. Works offline too!
 - Read & Write mode <kbd>CTRL</kbd> + <kbd>M</kbd>
 - Vim mode.
 - Offline mode.
+- Option to [self-host](/SELF-HOSTING.md).
 - Fuzzy-finder <kbd>CTRL</kbd> + <kbd>K</kbd>
 - Installable as a PWA.
 - Authentication with [Auth.js](https://authjs.dev).
