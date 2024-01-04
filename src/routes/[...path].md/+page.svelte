@@ -9,6 +9,7 @@
   import PreferencesDialog from '$lib/components/PreferencesDialog.svelte'
   import CreateDialog from '$lib/components/CreateDialog.svelte'
   import FileDialog from '$lib/components/FileDialog.svelte'
+  import Loader from '$lib/components/Loader.svelte'
   import { convertMarkdown } from '$lib/markdown'
 
   export let data
@@ -134,7 +135,7 @@
 
     <Preview {html} text={doc.text} />
   {:else}
-    <p>Loading...</p>
+    <Loader/>
   {/if}
 {/key}
 
