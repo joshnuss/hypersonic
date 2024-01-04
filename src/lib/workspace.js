@@ -84,7 +84,7 @@ export function getWorkspace(user) {
                 this.title.delete(0, this.title.toString().length)
                 this.title.insert(0, newTitle)
 
-                titles.set(`${path}.md`, newTitle)
+                titles.set(path, newTitle)
               }
             },
             existing
