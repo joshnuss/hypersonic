@@ -107,4 +107,13 @@
     display: inline-block;
     height: 1rem;
   }
+
+  #preview :global(li p) {
+    margin: 0;
+    display: inline;
+  }
+
+  #preview :global(a) {
+    padding: 0;
+  }
 </style>
