@@ -21,9 +21,14 @@
   ]
 
   function click(provider) {
-    const callbackUrl = $page.url.searchParams.get('callbackUrl') || '/dashboard'
+    const callbackUrl = $page.url.searchParams.get('callbackUrl')
+    const options = {}
 
-    signIn(provider.key, { callbackUrl })
+    if (callbackUrl) {
+      options.callbackUrl = callbackUrl
+    }
+
+    signIn(provider.key, options)
   }
 </script>
 
