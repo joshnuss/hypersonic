@@ -28,10 +28,10 @@ To setup using Vercel and Neon:
 1. Download or fork the project
 2. Create a new hosting project on [Vercel](https://vercel.com/dashboard)
 3. Create a free [Neon](https://neon.tech) database
-4. Create an OAuth account (ie Github, Google, etc)
+4. Create an OAuth account (ie [Github](https://github.com/settings/applications/new), [Google](https://support.google.com/cloud/answer/6158849?hl=en), etc)
 5. Configure [environment variables](/.env.example) in the hosting account
-6. Optional: Create a [Sentry](https://sentry.io) account
-7. Optional: Create a [Fathom Analytics](https://usefathom.com) account
+6. **Optional**: Create a [Sentry](https://sentry.io) account
+7. **Optional**: Create a [Fathom Analytics](https://usefathom.com) account
 
 ## Updates
 
