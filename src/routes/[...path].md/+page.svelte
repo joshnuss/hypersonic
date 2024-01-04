@@ -61,11 +61,11 @@
       doc.text.unobserve(updateMarkdown)
     }
 
-    focus()
-
     doc = result.doc
     doc.text.observe(updateMarkdown)
     markdown = doc.text.toString()
+
+    focus()
   }
 
   function updateMarkdown(e) {
@@ -78,7 +78,7 @@
       toggleMode()
 
       if ($mode == 'write') {
-        editor.focus()
+        focus()
       }
     }
 
@@ -106,7 +106,7 @@
   }
 
   function focus() {
-    editor?.focus()
+    setTimeout(() => editor?.focus(), 0)
   }
 </script>
 
