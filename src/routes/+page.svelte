@@ -3,12 +3,64 @@
   import { page } from '$app/stores'
 </script>
 
-<h1>Hypersonic</h1>
+<section class="hero">
+  <div class="logo">
+    <img src="/logo.svg" alt="Logo"/>
 
-<p>Multi-player markdown editor & wiki.</p>
+    <div class="titles">
+      <h1>Hypersonic</h1>
+      <p>Multi-player markdown editor & wiki.</p>
+      <button on:click={() => signIn('github', { callbackUrl: '/open'})}>
+        Free Beta Access
+      </button>
+    </div>
+  </div>
+</section>
 
-{JSON.stringify($page.data)}
+<style>
+  .hero {
+    margin: 4rem 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
 
-<button on:click={() => signIn('github')}>
-  Sign In
-</button>
+  .logo {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    & img {
+      align-self: flex-start;
+    }
+  }
+
+  .titles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  h1 {
+    font-size: 5rem;
+    color: var(--violet-5);
+    margin: 2rem 0 0;
+  }
+
+  p {
+    font-size: var(--font-size-4);
+  }
+
+  button {
+    margin-top: 1rem;
+    align-self: flex-start;
+    font-size: 1rem;
+    font-weight: normal;
+    padding: 1rem;
+    color: var(--gray-2);
+    background: var(--violet-5);
+    border-radius: var(--radius-2);
+  }
+</style>
