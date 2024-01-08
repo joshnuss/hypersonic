@@ -12,9 +12,9 @@
   }
 
   function submit(e, newTab = false) {
-    path = path.trim()
-
     if (!path) return
+
+    path = path.trim()
 
     if (!path.endsWith('.md')) {
       path += '.md'
