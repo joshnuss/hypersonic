@@ -22,10 +22,10 @@
     width: calc(var(--size) - var(--margin));
     height: calc(var(--size) - var(--margin));
     margin: var(--margin);
-    border: var(--margin) solid var(--indigo-2);
+    border: var(--margin) solid var(--violet-4);
     border-radius: 50%;
     animation: rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: var(--indigo-3) transparent transparent transparent;
+    border-color: var(--violet-4) transparent transparent transparent;
   }
 
   .ring div:nth-child(1) {
