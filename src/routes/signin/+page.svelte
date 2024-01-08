@@ -10,13 +10,6 @@
       label: 'GitHub',
       color: 'white',
       background: '#333'
-    },
-    {
-      icon: 'mdi-google',
-      key: 'google',
-      label: 'Google',
-      color: 'var(--blue-8)',
-      background: 'white'
     }
   ]
 
