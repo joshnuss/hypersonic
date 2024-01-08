@@ -11,7 +11,7 @@
       <h1>Hypersonic</h1>
       <p>Multi-player markdown editor & wiki.</p>
       <button on:click={() => signIn('github', { callbackUrl: '/open'})}>
-        Free Beta Access
+        Sign in with GitHub
       </button>
     </div>
   </div>
@@ -58,7 +58,7 @@
     align-self: flex-start;
     font-size: 1rem;
     font-weight: normal;
-    padding: 1rem;
+    padding: 0.75rem 1.5rem;
     color: var(--gray-1);
     background: var(--violet-5);
     border-radius: var(--radius-2);
