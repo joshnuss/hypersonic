@@ -43,9 +43,10 @@ export const basicDarkTheme = EditorView.theme(
     '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection':
       { backgroundColor: selection },
     '.cm-fat-cursor': {
-      backgroundColor: 'var(--indigo-2) !important',
-      color: 'var(--gray-8) !important',
-      outline: 'none !important'
+      color: 'var(--gray-1) !important',
+      outline: `1px solid hsl(var(--blue-2-hsl) / 50%)`,
+      borderRadius: '1px',
+      backgroundColor: 'hsl(var(--blue-2-hsl) / 40%) !important',
     },
 
     '.cm-panels': { backgroundColor: darkBackground, color: base03 },
