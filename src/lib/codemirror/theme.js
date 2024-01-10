@@ -66,11 +66,13 @@ export const basicDarkTheme = EditorView.theme(
     '.cm-selectionMatch': { backgroundColor: highlightBackground },
 
     '&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
-      outline: `1px solid ${base03}`
+      outline: `1px solid hsl(var(--blue-2-hsl) / 50%)`,
+      borderRadius: '1px'
     },
 
     '&.cm-focused .cm-matchingBracket': {
-      backgroundColor: base02,
+      backgroundColor: 'hsl(var(--blue-2-hsl) / 40%)',
+      borderStyle: 'none',
       color: base07
     },
 
