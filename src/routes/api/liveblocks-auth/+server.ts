@@ -7,7 +7,7 @@ const liveblocks = new Liveblocks({
 })
 
 export async function POST({ request, locals }) {
-  const { user } = await locals.getSession()
+  const { user } = await locals.getSession() || {}
 
   if (!user) {
     throw error(401)
